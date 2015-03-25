@@ -10,7 +10,6 @@
 		725DDC231ABE2F1A001392F5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725DDC221ABE2F1A001392F5 /* Card.swift */; };
 		725DDC251ABE3248001392F5 /* PlayFlashCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725DDC241ABE3248001392F5 /* PlayFlashCardsViewController.swift */; };
 		725DDC271ABE641C001392F5 /* PlaySolveNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725DDC261ABE641C001392F5 /* PlaySolveNumberViewController.swift */; };
-		725DDC2A1ABEF88B001392F5 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725DDC291ABEF88B001392F5 /* UserData.swift */; };
 		72A58BDF1AB6188C0090EF05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A58BDE1AB6188C0090EF05 /* AppDelegate.swift */; };
 		72A58BE21AB6188C0090EF05 /* NumberMemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 72A58BE01AB6188C0090EF05 /* NumberMemo.xcdatamodeld */; };
 		72A58BE71AB6188C0090EF05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72A58BE51AB6188C0090EF05 /* Main.storyboard */; };
@@ -41,7 +40,6 @@
 		725DDC241ABE3248001392F5 /* PlayFlashCardsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayFlashCardsViewController.swift; sourceTree = "<group>"; };
 		725DDC261ABE641C001392F5 /* PlaySolveNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaySolveNumberViewController.swift; sourceTree = "<group>"; };
 		725DDC281ABEF781001392F5 /* NumberMemo 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 3.xcdatamodel"; sourceTree = "<group>"; };
-		725DDC291ABEF88B001392F5 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		725DDC2B1ABF0631001392F5 /* NumberMemo 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 4.xcdatamodel"; sourceTree = "<group>"; };
 		72A58BD91AB6188C0090EF05 /* NumberMemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NumberMemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72A58BDD1AB6188C0090EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -60,6 +58,7 @@
 		72F238001ABD90E60046518F /* FlashcardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashcardViewController.swift; sourceTree = "<group>"; };
 		72FE6A191ABF779000FF792D /* NumberMemo 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 5.xcdatamodel"; sourceTree = "<group>"; };
 		72FE6A1A1ABF784C00FF792D /* Staticstore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Staticstore.swift; sourceTree = "<group>"; };
+		72FE6B371AC2247F00FF792D /* NumberMemo 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 6.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +112,6 @@
 				72A58BEA1AB6188C0090EF05 /* LaunchScreen.xib */,
 				72A58BE01AB6188C0090EF05 /* NumberMemo.xcdatamodeld */,
 				72A58C011AB6471E0090EF05 /* Relation.swift */,
-				725DDC291ABEF88B001392F5 /* UserData.swift */,
 				72FE6A1A1ABF784C00FF792D /* Staticstore.swift */,
 				72A58BDC1AB6188C0090EF05 /* Supporting Files */,
 				725DDC221ABE2F1A001392F5 /* Card.swift */,
@@ -252,7 +250,6 @@
 				72A58BE21AB6188C0090EF05 /* NumberMemo.xcdatamodeld in Sources */,
 				725DDC251ABE3248001392F5 /* PlayFlashCardsViewController.swift in Sources */,
 				72F237F71ABB9AF50046518F /* MainMenuViewController.swift in Sources */,
-				725DDC2A1ABEF88B001392F5 /* UserData.swift in Sources */,
 				725DDC271ABE641C001392F5 /* PlaySolveNumberViewController.swift in Sources */,
 				72A58BDF1AB6188C0090EF05 /* AppDelegate.swift in Sources */,
 				72A58C031AB660BB0090EF05 /* SetValuesViewController.swift in Sources */,
@@ -468,13 +465,14 @@
 		72A58BE01AB6188C0090EF05 /* NumberMemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				72FE6B371AC2247F00FF792D /* NumberMemo 6.xcdatamodel */,
 				72FE6A191ABF779000FF792D /* NumberMemo 5.xcdatamodel */,
 				725DDC2B1ABF0631001392F5 /* NumberMemo 4.xcdatamodel */,
 				725DDC281ABEF781001392F5 /* NumberMemo 3.xcdatamodel */,
 				7201DC311ABB78C2000EAEC5 /* NumberMemo 2.xcdatamodel */,
 				72A58BE11AB6188C0090EF05 /* NumberMemo.xcdatamodel */,
 			);
-			currentVersion = 72FE6A191ABF779000FF792D /* NumberMemo 5.xcdatamodel */;
+			currentVersion = 72FE6B371AC2247F00FF792D /* NumberMemo 6.xcdatamodel */;
 			path = NumberMemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

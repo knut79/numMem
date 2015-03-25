@@ -32,7 +32,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         let relationItem = relationItems[indexPath.row]
         
         // Set the title of the cell to be the title of the logItem
-        cell.textLabel?.text = relationItem.titlenumber
+        cell.textLabel?.text = relationItem.number
         return cell
     }
     
@@ -41,26 +41,44 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         let relationItem = relationItems[indexPath.row]
         
         var numberRelationPrompt = UIAlertController(title: "Enter",
-            message: "Enter relation for number \(relationItem.titlenumber)",
+            message: "Enter relations for number \(relationItem.number)",
             preferredStyle: .Alert)
         
         
-        var numberRelationTextField: UITextField?
+        var subjectRelationTextField: UITextField?
         numberRelationPrompt.addTextFieldWithConfigurationHandler {
             (textField) -> Void in
-            numberRelationTextField = textField
-            textField.text = relationItem.numberrelation
-            textField.placeholder = "relation"
-            textField.keyboardType = UIKeyboardType.NumberPad
-            //textField.becomeFirstResponder()
+            subjectRelationTextField = textField
+            textField.text = relationItem.subject
+            textField.placeholder = "subject relation"
+            textField.keyboardType = UIKeyboardType.Default
+        }
+        
+        var verbRelationTextField: UITextField?
+        numberRelationPrompt.addTextFieldWithConfigurationHandler {
+            (textField) -> Void in
+            verbRelationTextField = textField
+            textField.text = relationItem.verb
+            textField.placeholder = "verb relation"
+            textField.keyboardType = UIKeyboardType.Default
+        }
+        
+        var otherRelationTextField: UITextField?
+        numberRelationPrompt.addTextFieldWithConfigurationHandler {
+            (textField) -> Void in
+            otherRelationTextField = textField
+            textField.text = relationItem.other
+            textField.placeholder = "other relation"
+            textField.keyboardType = UIKeyboardType.Default
         }
         
         numberRelationPrompt.addAction(UIAlertAction(title: "Ok",
             style: .Default,
             handler: { (action) -> Void in
                 
-                relationItem.numberrelation = numberRelationTextField!.text
-                
+                relationItem.subject = subjectRelationTextField!.text
+                relationItem.verb = verbRelationTextField!.text
+                relationItem.other = otherRelationTextField!.text
                 self.save()
                 //let textField = numberTextField
                 /*
@@ -107,7 +125,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         
         // Create a sort descriptor object that sorts on the "title"
         // property of the Core Data object
-        let sortDescriptor = NSSortDescriptor(key: "titlenumber", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         
         // Set the list of sort descriptors in the fetch request,
         // so it includes the sort descriptor
@@ -142,7 +160,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     func addNewItem() {
         
         var numberPrompt = UIAlertController(title: "Enter",
-            message: "Enter number with relation",
+            message: "Enter number with relations",
             preferredStyle: .Alert)
         
         var numberTextField: UITextField?
@@ -154,11 +172,25 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         }
         
         
-        var relationTextField: UITextField?
+        var subjectRelationTextField: UITextField?
         numberPrompt.addTextFieldWithConfigurationHandler {
             (textField) -> Void in
-            relationTextField = textField
-            textField.placeholder = "relation"
+            subjectRelationTextField = textField
+            textField.placeholder = "subject relation"
+            textField.keyboardType = UIKeyboardType.Default
+        }
+        var verbRelationTextField: UITextField?
+        numberPrompt.addTextFieldWithConfigurationHandler {
+            (textField) -> Void in
+            verbRelationTextField = textField
+            textField.placeholder = "verb relation"
+            textField.keyboardType = UIKeyboardType.Default
+        }
+        var otherRelationTextField: UITextField?
+        numberPrompt.addTextFieldWithConfigurationHandler {
+            (textField) -> Void in
+            otherRelationTextField = textField
+            textField.placeholder = "other relations"
             textField.keyboardType = UIKeyboardType.Default
         }
 
@@ -167,15 +199,18 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             style: .Default,
             handler: { (action) -> Void in
                 //let textField = numberTextField
-                if(numberTextField != nil && relationTextField != nil)
+                if(numberTextField != nil && (subjectRelationTextField != nil || verbRelationTextField != nil || otherRelationTextField != nil))
                 {
-                    self.saveNewItem(numberTextField!.text,relation: relationTextField!.text)
+                //self.saveNewItem(values.0,relationsubject: values.1, relationverb: values.2, otherrelation: values.3)
+                    self.saveNewItem(numberTextField!.text, relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text : "")
                 }
         }))
         
         self.presentViewController(numberPrompt,
             animated: true,
             completion: nil)
+        
+        relationsTableView.reloadData()
     }
     
     
@@ -183,150 +218,119 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     func populateItems() {
         
         var testData = [
-            ("00","Ozzy Ozbourne"),
-            ("01","OIl"),
-            ("02","OTer"),
-            ("03","jOEy"),
-            ("04","ORangutang . play an ORgan"),
-            ("05","OSama bin laben"),
-            ("06","augustus OCtavian. an OCtopus"),
-            ("07","OLivia. OLives"),
-            ("08","bOA snake. BOard a ship"),
-            ("09","jOGger. yOuGhurt"),
-            ("10","diego maradonna. IOc member gerard heiberg")
+            ("00","Ozzy Ozbourne","",""),
+            ("01","Oil","",""),
+            ("02","Oter","",""),
+            ("03","jOEy","",""),
+            ("04","ORangutang","play an ORgan",""),
+            ("05","OSama bin laben","",""),
+            ("06","augustus OCtavian. an OCtopus","",""),
+            ("07","OLivia. OLives","",""),
+            ("08","bOA snake","BOard a ship",""),
+            ("09","yOuGhurt","jOGge",""),
+            ("10","diego maradonna. IOc member gerard heiberg","",""),
+            
+            ("11","vinni","spille wii",""),
+            ("12","it-girl(liverly)","eat",""),
+            ("13","bie","vie","sklie"),
+            ("14","ironman","holde kart over irak",""),
+            ("15","isla fisher/isbjørn","isfiske","iscreme"),
+            ("16","iker casillas","spille icehockey",""),
+            ("17","ilder","ildspåsettelse",""),
+            ("18","ian thorp/ida alstad","spille piano",""),
+            ("19","iglesias","ligge i iglo",""),
+            ("20","tone damli","kjøre tog","tommestokk"),
+            
+            ("21","tindra/tiger","tigge",""),
+            ("22","TT optimus prime","trailer tute",""),
+            ("23","terrorist","telefonere","teppe , teleskop, terese j"),
+            ("24","troll","trampoline / trikse med ball",""),
+            ("25","tsar","tisse/tusje",""),
+            ("26","tchadeser/Tchave","tchadde seg til",""),
+            ("27","tori la","spyder turnament level",""),
+            ("28","tarzan,tarantino","tapetsere","tanks"),
+            ("29","trond giske","tægge",""),
+            ("30","demon devon","demonstrere",""),
+            
+            ("31","eirin/einstein","heise",""),
+            ("32","E.T","Stablere skyte stilling",""),
+            ("33","Erica eleniac","peele en kylling",""),
+            ("34","eremitt / Erik solheim","erteblåser",""),
+            ("35","erna solberb / Esel","ese",""),
+            ("36","echo jhonson / ekkorn","ekkolodd",""),
+            ("37","elle mc / elg","elske/elge","elina g"),
+            ("38","neandertaler","ejakulere",""),
+            ("39","egil","egge",""),
+            ("40","robot","ro en båt",""),
+            
+            ("41","riannon","ri en hest",""),
+            ("42","rytter","ruteknuser","ert"),
+            ("43","rekdal / rev","rengjøre / re en seng",""),
+            ("44","radioresepsjonen","røre i grøt",""),
+            ("45","russ","rugby","russebuss"),
+            ("46","røkke","røyke","rc cola"),
+            ("47","rebecca lin","","rullator"),
+            ("48","rakel nordtønne","rake",""),
+            ("49","","rugby / ruge på egg",""),
+            ("50","sofia","sole seg","sopelim"),
+            
+            ("51","silvio berlusconi / sild","sikle / sint","sirup"),
+            ("52","steinar / stacy","stirre / stylter",""),
+            ("53","seal (sangeren) / sel","sepe",""),
+            ("54","shrek","surfe",""),
+            ("55","susanne wegeland/steven seagal/sharon Stone","sakse",""),
+            ("56","","skyte","skiløper"),
+            ("57","slave","slikke / slim",""),
+            ("58","savanna / sau","sage","samedrakt"),
+            ("59","sugge(hu i 2 and a half)","sugerør","subaru"),
+            ("60","kortney kane","koste","cowboy"),
+
+            ("61","kirsebom","kite","kiropraktor"),
+            ("62","katy perry","kutte opp koteletter",""),
+            ("63","keri","ketchup",""),
+            ("64","kristus / krabbe","krans",""),
+            ("65","kiss /kirsten","male seg som kiss",""),
+            ("66","cindy crawford","","cyclecomponents"),
+            ("67","claudia shiffer","klatre/klore","klistre "),
+            ("68","carmen / karen","kaste kake",""),
+            ("69","carl gustav","sægge","sega"),
+            ("70","lolita","lollipop","lotus"),
+            
+            ("71","linda / line","gå på line",""),
+            ("72","luther king","lytte(m stetoskop)",""),
+            ("73","Leopard /lexus l","lese","lexus"),
+            ("74","(shakespear)","ta en lur/ plåse i lur","lyriker"),
+            ("75","løshund lydia S","låse seg fast","kebab"),
+            ("76","else koss","lukeparkere",""),
+            ("77","louise lane","lulle seg til en ball",""),
+            ("78","larsåsen","lassokasting","latex"),
+            ("79","lady gaga / elg","",""),
+            ("80","forman mao","","aorta"),
+
+            
+            ("81","aileen","","aircondition"),
+            ("82","atle antonsen","","atombombe"),
+            ("83","ape","amme",""),
+            ("84","argentiner/ b franco","","arkitektsbord"),
+            ("85","aslak sira myre","asfaltere",""),
+            ("86","aksel hennie","ake","akrobat"),
+            ("87","alicia keys / aleska","","almanak"),
+            ("88","asia akira","veive med pekefinger ahahah",""),
+            ("89","agulera/aggie","","agurk"),
+            ("90","gary oldman","","golf/golfspiller"),
+            
+        
+            ("91","giselle / giraf","",""),
+            ("92","gina turner","","gin and tonic"),
+            ("93","geri halleway/ geir","","gepard/ gebiss"),
+            ("94","grichen / gris","grille",""),
+            ("95","guenn stefani/gås","","gåsedun"),
+            ("96","","","gjøkur / geek"),
+            ("97","glenn / gerd liv valla","gløde","glavarull"),
+            ("98","gamsten/gargamel","","gave"),
+            ("99","gina G","","flagge")
         ]
         
-        /*
-        00 ozzy ozbourne object orientering på tavle
-        
-        01 mann kledd ut som oljetønne sort olje
-        
-        02 oter/otto Jespersen fotografere
-        
-        03 joey obay
-        
-        04 orangutang spille orgel
-        
-        05 osama bin laden/ostemann ostehøvle
-        
-        06 augustus octavian octopus
-        
-        07 olivia d rio plukke oliven fra oliventre,olivenolje, olabil
-        
-        08 boa-slange/ola boarde et fly
-        
-        09 original gansta/joggedame jonglere
-        
-        10 ioc medlem gerard heiberg maradonnas drakt/modell av jupiter månen io
-        
-        11 vinni/mann kledd ut som wii spille wii
-        
-        12 it-girl(liverly) eat
-        
-        13 mann kledd ut som bie/bie vie/sklie
-        
-        14 ironman holde et kart over iran/irak
-        
-        15 isla fisher/isbjørn isfiske/iscreme seg
-        
-        16 iker casillas spille icehockey
-        
-        17 ilder ildsåsettelse
-        
-        18 ian thorp/ida alstad piano
-        
-        19 iglesias ligge i iglo, på line
-        
-        20 tone damli kjøre lite tog tommestokk
-        
-        21 tindra/tiger tigge/tiger
-        
-        22 tung transport(optimus prime) trailer tute, tt-b
-        
-        23 terrorist telefonere, teppe, teleskop, terese johaug, te
-        
-        24 troll trikse med ball, trampoline
-        
-        25 tsar/tiss tusje
-        
-        26 tchadeser/Tchave dekke seg til (tchadde seg til)
-        
-        27 tori la. spyder turnament level
-        
-        28 tarzan,tara, taylor p, tarantino tapetsere, tanks
-        
-        29 trond giske tægge 30 demon devon demonstrere 31 eirin/einstein heise
-        
-        32 E.T etablere skyte stilling 33 erica eleniac peele en kylling 34 eremitt, erik solheim erteblåser,eremitt 35 erna solberg esel, ese 36 ekkorn/echo jhonson ekko 37 elinaG/elle mc /elg/elge/elske
-        
-        38 neandertaler heale/ejakulere????? 39 egil(herberge) egge 40 robot ro en båt 41 riannon ri en hest 42 rytter(klovn) ruteknuse /ert 43 rev/rekdal rengjøre/re (en seng) 44 radioResepsjonen røre i grøt 45 russ russeknute
-        
-        46 røkke/rc cola røke/rc cola/ rc fly bil båt
-        
-        47 rebecca lin rullator skate (rulle på rullebrett) 48 rakel Rapper nordtønne rake 49 rugbyspiller ruge (på et egg)
-        
-        50 sol/sofia sole seg sopelim
-        
-        51 silvio berlusconi / sigvard d./idol siri/sild/sikle, sint, sirup
-        
-        52 stacy/(steinar) stirre/stylter
-        
-        53 sel segle/sepe, sene, selena g, serina w, sangeren seal
-        
-        54 shrek surfe 55 ss-soldat/susanne Wergeland steven seagal/sharon stone susse/sakse/sissers 56 skiløper skyte 57 slave/slim/ slikke 58 savannah sage same sau
-        
-        59 sugge sugerør subaru
-        
-        60 cowboy/cowgirl/kortney kane koste 61 kirsebom/kirsten/kiropraktor kite
-        
-        62 katy kutte opp koteletter . Sete
-        
-        63 keri ketchup 64 kristus krabbe , krans
-        
-        65 kiss spille cs/male seg som kiss 66 cindy crawford cyclecomponents 67 claudia shiffer klatre/klore/klistre klistremerker
-        
-        68 carmen/karen kaste kake/kakekrig
-        
-        69 Carl Gustav,sega konsoll spille sega konsoll/SAGGE
-        
-        70 lolita lollipop, lotus
-        
-        71 linn/ Linda o/gå line lime
-        
-        72 luther king lytte med stetoskop/ elte deig
-        
-        73 lexus l / Leopard/ lese
-        
-        74 lyriker/lur blåse i lur 75 løs hund/ls /lydia Sch. /kebab/lås låse 76 lc else koss furuseth lukeparkere 77 louise lane,lars lillo, lulle seg til en ball 78 larsåsen lassokasting/latex
-        
-        79 lady gaga/lg , elg ioskjerm ligge med henda bak hodet
-        
-        80 mao aa aorta som blør, 80 talls samanta fox frisyre
-        
-        81 aileen airconditionere
-        
-        82 atle antonsen atombombe, atlas 
-        
-        83 ape amme Ake
-        
-        84 argentiner, b franco tegne på et arkitektbord
-        
-        85 aslak sira myre asfaltere
-        
-        86 akrobat ?? /aksel hennie ake
-        
-        87 alicia keys, aleska holde en almanak , 
-        
-        88 asia akira, anonym alkoholiker veive med pekefinger ahah 89, agulera aggie (frost) holde en agurk 90 gary oldman/golfspiller/gulbis golfe 91 giselle giraff gir 92 gina turner/golf GT gin and tonic
-        
-        93 geri halleway/GEIR gebisspussing gepard
-        
-        94 gris/jana grishen/grichen/ grille 95 gørill snorreggen/guenn stefani/gås gåsedun-krig 96 geek gjøkur
-        
-        97 Gerd liv Valla  / geir lippestad.gløde / glenn roar / gløde/ glavarull
-        
-        98 gemma arterton/gave/gamsten/gargamel 99 gina g google/gagge/flagge
-        */
         var numberPrompt = UIAlertController(title: "Populate data",
             message: "Want to populate some test data",
             preferredStyle: .Alert)
@@ -336,7 +340,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             handler: { (action) -> Void in
                 for values in testData
                 {
-                    self.saveNewItem(values.0,relation: values.1)
+                    self.saveNewItem(values.0,relationsubject: values.1, relationverb: values.2, otherrelation: values.3)
                     
                 }
 
@@ -354,10 +358,10 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     }
     
     
-    func saveNewItem(number: String, relation: String) {
+    func saveNewItem(number: String, relationsubject: String, relationverb: String, otherrelation: String ) {
         // Create the new  log item
         
-        var newRelationItem = Relation.createInManagedObjectContext(self.managedObjectContext!, thenumber: number, therelation: relation)
+        var newRelationItem = Relation.createInManagedObjectContext(self.managedObjectContext!, number: number, verb: relationsubject, subject: relationverb, otherrelation: otherrelation)
         
         // Update the array containing the table view row data
         self.fetchRelations()

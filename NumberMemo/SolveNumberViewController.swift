@@ -57,6 +57,8 @@ class SolveNumberViewController: UIViewController {
                 numberLabel.text = fetchResults[0].wholenumber
                 numDigitsLabel.text = "\(numberLabel.text!.utf16Count) digits"
             }
+            
+
             staticstoreItems = fetchResults
 
         }
@@ -105,6 +107,11 @@ class SolveNumberViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         fetchUserData()
+        if(staticstoreItems.count == 0)
+        {
+            Staticstore.createInManagedObjectContext(self.managedObjectContext!, wholenumber: "", rightnumber: "" , wrongnumber: "")
+            fetchUserData()
+        }
         numberLabel.text = staticstoreItems[0].wholenumber
     }
     

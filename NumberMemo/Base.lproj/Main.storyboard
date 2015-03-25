@@ -103,9 +103,6 @@
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="151" y="474" width="80" height="30"/>
                                 </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="160" y="316" width="80" height="30"/>
-                                </variation>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                     <rect key="frame" x="360" y="379" width="80" height="30"/>
                                 </variation>

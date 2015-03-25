@@ -109,13 +109,13 @@ class PlayFlashCardsViewController: UIViewController{
     func fetchRelations() {
         
         let fetchRequest = NSFetchRequest(entityName: "Relation")
-        let sortDescriptor = NSSortDescriptor(key: "titlenumber", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
             for(var i = minCardIndex; i <= maxCardIndex ; i++)
             {
-                cards.append(Card(front: fetchResults[i].titlenumber, back: fetchResults[i].numberrelation))
+                cards.append(Card(front: fetchResults[i].number, back: fetchResults[i].subject + "\n" + fetchResults[i].verb + "\n" + fetchResults[i].other))
             }
             
             if(randomize)

@@ -29,7 +29,7 @@ class FlashcardViewController: UIViewController{
     func fetchRelations() {
         
         let fetchRequest = NSFetchRequest(entityName: "Relation")
-        let sortDescriptor = NSSortDescriptor(key: "titlenumber", ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
@@ -94,7 +94,7 @@ class FlashcardViewController: UIViewController{
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String
     {
 
-            return relationItems[row].titlenumber
+            return relationItems[row].number
     }
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {

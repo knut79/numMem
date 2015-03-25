@@ -11,17 +11,20 @@ import CoreData
 
 class Relation: NSManagedObject {
 
-    @NSManaged var titlenumber: String
-    @NSManaged var numberrelation: String
-    @NSManaged var numberrelationverb: String
+    @NSManaged var number: String
+    @NSManaged var other: String
+    @NSManaged var verb: String
+    @NSManaged var subject: String
+    @NSManaged var marked: Boolean
     //@NSManaged var numberrelationsubject: String
     
-    class func createInManagedObjectContext(moc: NSManagedObjectContext, thenumber: String, therelation: String) -> Relation{
+    class func createInManagedObjectContext(moc: NSManagedObjectContext, number: String, verb: String, subject: String, otherrelation: String) -> Relation{
         let newitem = NSEntityDescription.insertNewObjectForEntityForName("Relation", inManagedObjectContext: moc) as Relation
-        newitem.titlenumber = thenumber
-        newitem.numberrelation = therelation
-        //newitem.numberrelationsubject = ""
-        newitem.numberrelationverb = ""
+        newitem.number = number
+        newitem.verb = verb
+        newitem.subject = subject
+        newitem.other = otherrelation
+        newitem.marked = 0
         
         return newitem
     }
