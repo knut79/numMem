@@ -15,17 +15,21 @@ class FlashcardViewController: UIViewController{
     
 
     
+    @IBOutlet weak var autorevealSwitch: UISwitch!
+    @IBOutlet weak var onlyMarkedLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var randomizeSwith: UISwitch!
+    @IBOutlet weak var markedSwith: UISwitch!
     @IBOutlet weak var fromPickerView: UIPickerView!
     @IBOutlet weak var toPickerView: UIPickerView!
+
     @IBAction func randomizeSwitchChanged(sender: UISwitch) {
 
     }
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
     var relationItems = [Relation]()
-    
+
     func fetchRelations() {
         
         let fetchRequest = NSFetchRequest(entityName: "Relation")
@@ -45,8 +49,8 @@ class FlashcardViewController: UIViewController{
         {
             startButton.alpha = 0.0
         }
-        
     }
+
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -104,6 +108,8 @@ class FlashcardViewController: UIViewController{
             svc.maxCardIndex = toSelectedRow
             svc.minCardIndex = fromSelectedRow
             svc.randomize = randomizeSwith.on
+            svc.onlyMarked = markedSwith.on
+            svc.autoreveal = autorevealSwitch.on
             
         }
     }

@@ -22,6 +22,7 @@
 		72F237FF1ABD88D10046518F /* SolveNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F237FE1ABD88D10046518F /* SolveNumberViewController.swift */; };
 		72F238011ABD90E60046518F /* FlashcardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F238001ABD90E60046518F /* FlashcardViewController.swift */; };
 		72FE6A1B1ABF784C00FF792D /* Staticstore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FE6A1A1ABF784C00FF792D /* Staticstore.swift */; };
+		72FE6B3B1AC2D44600FF792D /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 72FE6B3A1AC2D44600FF792D /* Icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		72FE6A191ABF779000FF792D /* NumberMemo 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 5.xcdatamodel"; sourceTree = "<group>"; };
 		72FE6A1A1ABF784C00FF792D /* Staticstore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Staticstore.swift; sourceTree = "<group>"; };
 		72FE6B371AC2247F00FF792D /* NumberMemo 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 6.xcdatamodel"; sourceTree = "<group>"; };
+		72FE6B3A1AC2D44600FF792D /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 		72A58BDC1AB6188C0090EF05 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				72FE6B3A1AC2D44600FF792D /* Icon.png */,
 				72A58BDD1AB6188C0090EF05 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -224,6 +227,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72FE6B3B1AC2D44600FF792D /* Icon.png in Resources */,
 				72A58BE71AB6188C0090EF05 /* Main.storyboard in Resources */,
 				72A58BEC1AB6188C0090EF05 /* LaunchScreen.xib in Resources */,
 				72A58BE91AB6188C0090EF05 /* Images.xcassets in Resources */,

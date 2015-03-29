@@ -11,11 +11,15 @@ import Foundation
 
 class Card
 {
-    let front: String
+    var front: String
     let back: String
+    var marked: Boolean
+    var nsManagedObject: Relation
     
-    init(front:String, back:String){
+    init(front:String, back:String, marked:Boolean, nsManagedObject: Relation){
         self.front = front
         self.back = back
+        self.marked = marked
+        self.nsManagedObject = nsManagedObject
     }
 }

@@ -97,11 +97,15 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nna-cF-ALU">
                                 <rect key="frame" x="260" y="373" width="80" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Start">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="151" y="474" width="80" height="30"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="26" y="730" width="348" height="30"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                     <rect key="frame" x="360" y="379" width="80" height="30"/>
@@ -112,26 +116,35 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3X-TD-fbx">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="16" y="165" width="42" height="21"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="142" width="42" height="21"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Wo-6v-TmB">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="16" y="319" width="42" height="21"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="283" width="42" height="21"/>
                                 </variation>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SfC-ci-bec">
                                 <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="109" y="258" width="182" height="162"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="109" y="213" width="182" height="162"/>
                                 </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="3Sq-NX-q1n" id="AZJ-DG-pW2"/>
@@ -143,6 +156,9 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="109" y="95" width="198" height="162"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="109" y="72" width="198" height="162"/>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="3Sq-NX-q1n" id="AnG-MK-HLT"/>
                                     <outlet property="delegate" destination="3Sq-NX-q1n" id="GDP-pk-6mg"/>
@@ -153,17 +169,53 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="176" y="419" width="51" height="31"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="377" width="51" height="31"/>
+                                </variation>
                                 <connections>
                                     <action selector="randomizeSwitchChanged:" destination="3Sq-NX-q1n" eventType="valueChanged" id="8YI-Z1-Nmd"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Randomize" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RN4-1r-NFW">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="16" y="419" width="101" height="21"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="377" width="101" height="21"/>
+                                </variation>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jqo-Ag-9sH">
+                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="416" width="51" height="31"/>
+                                </variation>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only marked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Wm-Ro-JSB">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="419" width="101" height="26"/>
+                                </variation>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dDf-jq-LVh">
+                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="464" width="51" height="31"/>
+                                </variation>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autoreveal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmH-CN-p5r">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="464" width="101" height="31"/>
                                 </variation>
                             </label>
                         </subviews>
@@ -181,6 +233,10 @@
                                 <exclude reference="XfO-cf-UIm"/>
                                 <exclude reference="AKv-XY-ZVA"/>
                                 <exclude reference="RN4-1r-NFW"/>
+                                <exclude reference="jqo-Ag-9sH"/>
+                                <exclude reference="3Wm-Ro-JSB"/>
+                                <exclude reference="dDf-jq-LVh"/>
+                                <exclude reference="SmH-CN-p5r"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Ykd-mM-Tui"/>
@@ -203,9 +259,20 @@
                                 <include reference="ejc-zp-x4i"/>
                             </mask>
                         </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="jqo-Ag-9sH"/>
+                                <include reference="3Wm-Ro-JSB"/>
+                                <include reference="dDf-jq-LVh"/>
+                                <include reference="SmH-CN-p5r"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
+                        <outlet property="autorevealSwitch" destination="dDf-jq-LVh" id="W2R-JJ-i1A"/>
                         <outlet property="fromPickerView" destination="XfO-cf-UIm" id="gmU-Kq-TFM"/>
+                        <outlet property="markedSwith" destination="jqo-Ag-9sH" id="aK5-4c-qWR"/>
+                        <outlet property="onlyMarkedLabel" destination="3Wm-Ro-JSB" id="SKG-Tc-SXR"/>
                         <outlet property="randomizeSwith" destination="AKv-XY-ZVA" id="rfg-q8-9Cf"/>
                         <outlet property="startButton" destination="nna-cF-ALU" id="WGj-XO-0R3"/>
                         <outlet property="toPickerView" destination="SfC-ci-bec" id="TmX-ui-ocr"/>
@@ -249,16 +316,6 @@
                                     <outlet property="delegate" destination="HcD-P8-NRC" id="AdG-D0-sgP"/>
                                 </connections>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="characterWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QwM-Xq-bfK">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="18" y="308" width="282" height="118"/>
-                                </variation>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digits" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRk-ad-cT8">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -270,6 +327,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHc-RQ-ZPG">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="Start">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -281,24 +339,62 @@
                                     <segue destination="pru-p1-G9Z" kind="show" identifier="ToFlashCardPlay" id="WVd-c9-6V9"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6x-QM-Fy1">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <webView contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQQ-Sf-JOL">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <dataDetectorType key="dataDetectorTypes"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="5" y="5" width="220" height="128"/>
+                                        </variation>
+                                    </webView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cU-AZ-lJQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="5" y="5" width="220" height="128"/>
+                                        </variation>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="bQQ-Sf-JOL"/>
+                                        <exclude reference="1cU-AZ-lJQ"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="36" y="302" width="230" height="138"/>
+                                    <mask key="subviews">
+                                        <include reference="bQQ-Sf-JOL"/>
+                                        <include reference="1cU-AZ-lJQ"/>
+                                    </mask>
+                                </variation>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="YNZ-ZY-dP9"/>
                                 <exclude reference="0Uv-ZR-eZV"/>
-                                <exclude reference="QwM-Xq-bfK"/>
                                 <exclude reference="hRk-ad-cT8"/>
                                 <exclude reference="DHc-RQ-ZPG"/>
+                                <exclude reference="A6x-QM-Fy1"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="YNZ-ZY-dP9"/>
                                 <include reference="0Uv-ZR-eZV"/>
-                                <include reference="QwM-Xq-bfK"/>
                                 <include reference="hRk-ad-cT8"/>
                                 <include reference="DHc-RQ-ZPG"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="A6x-QM-Fy1"/>
                             </mask>
                         </variation>
                     </view>
@@ -306,14 +402,16 @@
                     <connections>
                         <outlet property="generateNumberButton" destination="YNZ-ZY-dP9" id="dOT-Ew-Ljf"/>
                         <outlet property="numDigitsLabel" destination="hRk-ad-cT8" id="gI2-gI-MB1"/>
-                        <outlet property="numberLabel" destination="QwM-Xq-bfK" id="4BR-zS-jGi"/>
+                        <outlet property="numberLabel" destination="bQQ-Sf-JOL" id="TAK-lO-utl"/>
+                        <outlet property="numberWebViewOverlay" destination="1cU-AZ-lJQ" id="WR6-0Q-Frg"/>
+                        <outlet property="parentNumverWebView" destination="A6x-QM-Fy1" id="p0v-kQ-E8R"/>
                         <outlet property="startButton" destination="DHc-RQ-ZPG" id="cxM-Oi-J5R"/>
                         <outlet property="unregularNumberPicker" destination="0Uv-ZR-eZV" id="vuc-mO-ive"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vb7-Sd-iua" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1582.5" y="-281"/>
+            <point key="canvasLocation" x="1582.5" y="-281.25"/>
         </scene>
         <!--Play Solve Number View Controller-->
         <scene sceneID="4AY-re-d9N">

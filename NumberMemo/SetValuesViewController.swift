@@ -32,7 +32,19 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         let relationItem = relationItems[indexPath.row]
         
         // Set the title of the cell to be the title of the logItem
-        cell.textLabel?.text = relationItem.number
+        var allValuesSat = relationItem.subject != "" && relationItem.verb != ""
+        var noValuesSat = relationItem.subject == "" && relationItem.verb == ""
+        //+ (allValuesSat ? "👍" : "") + (noValuesSat ? "👎" : "") +
+        var textForCell:String!
+        if(allValuesSat)
+        {
+            textForCell = relationItem.number + " : " + "🌞"
+        }
+        else
+        {
+            textForCell = relationItem.number + " : " + (relationItem.subject == "" ? "No subject👎" : "Subject👍") + " " + (relationItem.verb == "" ? "No verb👎" : "Verb👍")
+        }
+        cell.textLabel?.text = textForCell
         return cell
     }
     
@@ -159,6 +171,8 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     let addItemTextAlertViewTag = 1
     func addNewItem() {
         
+
+        
         var numberPrompt = UIAlertController(title: "Enter",
             message: "Enter number with relations",
             preferredStyle: .Alert)
@@ -201,10 +215,30 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                 //let textField = numberTextField
                 if(numberTextField != nil && (subjectRelationTextField != nil || verbRelationTextField != nil || otherRelationTextField != nil))
                 {
-                //self.saveNewItem(values.0,relationsubject: values.1, relationverb: values.2, otherrelation: values.3)
-                    self.saveNewItem(numberTextField!.text, relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text : "")
+                    
+                    if(self.numberExists(numberTextField!.text))
+                    {
+                        var existsPrompt = UIAlertController(title: "Value exists",
+                            message: "Number \(numberTextField!.text) exists. Values are dismissed",
+                            preferredStyle: .Alert)
+                        existsPrompt.addAction(UIAlertAction(title: "Ok",
+                            style: .Default,
+                            handler: nil))
+                        self.presentViewController(existsPrompt,
+                            animated: true,
+                            completion: nil)
+                    }
+                    else
+                    {
+                        //numberTextField!.text
+                        //self.saveNewItem(values.0,relationsubject: values.1, relationverb: values.2, otherrelation: values.3)
+                    
+                        self.saveNewItem(numberTextField!.text, relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text : "")
+                    }
                 }
         }))
+        
+
         
         self.presentViewController(numberPrompt,
             animated: true,
@@ -213,7 +247,17 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         relationsTableView.reloadData()
     }
     
-    
+    func numberExists(number: String) -> Bool
+    {
+        for relation in relationItems
+        {
+            if(number == relation.number)
+            {
+                return true
+            }
+        }
+        return false
+    }
     
     func populateItems() {
         
@@ -361,7 +405,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     func saveNewItem(number: String, relationsubject: String, relationverb: String, otherrelation: String ) {
         // Create the new  log item
         
-        var newRelationItem = Relation.createInManagedObjectContext(self.managedObjectContext!, number: number, verb: relationsubject, subject: relationverb, otherrelation: otherrelation)
+        var newRelationItem = Relation.createInManagedObjectContext(self.managedObjectContext!, number: number, verb: relationverb, subject: relationsubject, otherrelation: otherrelation)
         
         // Update the array containing the table view row data
         self.fetchRelations()
