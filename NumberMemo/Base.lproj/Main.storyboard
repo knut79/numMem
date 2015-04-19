@@ -26,6 +26,9 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="16" y="100" width="304" height="65"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="204" width="304" height="65"/>
+                                </variation>
                                 <connections>
                                     <segue destination="3Sq-NX-q1n" kind="show" id="2cP-qt-IW5"/>
                                 </connections>
@@ -33,11 +36,14 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ezh-mz-klh">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Set data">
+                                <state key="normal" title="Set relations">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="16" y="173" width="304" height="67"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="89" width="304" height="67"/>
                                 </variation>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="qHt-g3-kcN"/>
@@ -46,14 +52,60 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNn-tP-WJY">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Solve">
+                                <state key="normal" title="Solve big numbers">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="16" y="233" width="304" height="88"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="343" width="304" height="88"/>
+                                </variation>
                                 <connections>
                                     <segue destination="HcD-P8-NRC" kind="show" id="qGO-Ji-uy4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setup" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eT5-vy-7HM">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="89" width="276" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Practice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jDk-xU-anL">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="30" y="185" width="276" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YO-3F-hoE">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="84" y="343" width="175" height="21"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P6N-aY-LzJ">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Guess right value">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="173" width="304" height="67"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="253" width="304" height="67"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="yRJ-r0-fZb" kind="show" id="XcP-Ln-cPu"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -63,6 +115,10 @@
                                 <exclude reference="mf5-zh-KgD"/>
                                 <exclude reference="Ezh-mz-klh"/>
                                 <exclude reference="TNn-tP-WJY"/>
+                                <exclude reference="eT5-vy-7HM"/>
+                                <exclude reference="jDk-xU-anL"/>
+                                <exclude reference="4YO-3F-hoE"/>
+                                <exclude reference="P6N-aY-LzJ"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -70,6 +126,14 @@
                                 <include reference="mf5-zh-KgD"/>
                                 <include reference="Ezh-mz-klh"/>
                                 <include reference="TNn-tP-WJY"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="eT5-vy-7HM"/>
+                                <include reference="jDk-xU-anL"/>
+                                <include reference="4YO-3F-hoE"/>
+                                <include reference="P6N-aY-LzJ"/>
                             </mask>
                         </variation>
                     </view>
@@ -81,7 +145,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wzx-cC-Adf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="859.5" y="-77"/>
+            <point key="canvasLocation" x="859.5" y="-77.25"/>
         </scene>
         <!--Flashcard View Controller-->
         <scene sceneID="ArZ-qx-nHC">
@@ -188,21 +252,6 @@
                                     <rect key="frame" x="16" y="377" width="101" height="21"/>
                                 </variation>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jqo-Ag-9sH">
-                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="176" y="416" width="51" height="31"/>
-                                </variation>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only marked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Wm-Ro-JSB">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="419" width="101" height="26"/>
-                                </variation>
-                            </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dDf-jq-LVh">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
@@ -233,8 +282,6 @@
                                 <exclude reference="XfO-cf-UIm"/>
                                 <exclude reference="AKv-XY-ZVA"/>
                                 <exclude reference="RN4-1r-NFW"/>
-                                <exclude reference="jqo-Ag-9sH"/>
-                                <exclude reference="3Wm-Ro-JSB"/>
                                 <exclude reference="dDf-jq-LVh"/>
                                 <exclude reference="SmH-CN-p5r"/>
                             </mask>
@@ -261,8 +308,6 @@
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="jqo-Ag-9sH"/>
-                                <include reference="3Wm-Ro-JSB"/>
                                 <include reference="dDf-jq-LVh"/>
                                 <include reference="SmH-CN-p5r"/>
                             </mask>
@@ -271,7 +316,6 @@
                     <connections>
                         <outlet property="autorevealSwitch" destination="dDf-jq-LVh" id="W2R-JJ-i1A"/>
                         <outlet property="fromPickerView" destination="XfO-cf-UIm" id="gmU-Kq-TFM"/>
-                        <outlet property="markedSwith" destination="jqo-Ag-9sH" id="aK5-4c-qWR"/>
                         <outlet property="onlyMarkedLabel" destination="3Wm-Ro-JSB" id="SKG-Tc-SXR"/>
                         <outlet property="randomizeSwith" destination="AKv-XY-ZVA" id="rfg-q8-9Cf"/>
                         <outlet property="startButton" destination="nna-cF-ALU" id="WGj-XO-0R3"/>
@@ -281,6 +325,138 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VP1-iS-BEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="483" y="651"/>
+        </scene>
+        <!--Guess Right View Controller-->
+        <scene sceneID="zic-gZ-Sum">
+            <objects>
+                <viewController id="yRJ-r0-fZb" customClass="GuessRightViewController" customModule="NumberMemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4FK-L2-HGh"/>
+                        <viewControllerLayoutGuide type="bottom" id="hmx-Kc-BmW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ngZ-om-ama">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Vd-fO-sSD">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="165" width="42" height="21"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="134" width="42" height="21"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCh-eQ-ME0">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="319" width="42" height="21"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="275" width="42" height="21"/>
+                                </variation>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJH-T4-YID">
+                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="109" y="95" width="198" height="162"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="109" y="64" width="198" height="162"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="yRJ-r0-fZb" id="in0-1S-QXZ"/>
+                                    <outlet property="delegate" destination="yRJ-r0-fZb" id="Rn4-EH-IUk"/>
+                                </connections>
+                            </pickerView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jqo-Ag-9sH">
+                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="384" width="51" height="31"/>
+                                </variation>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only marked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Wm-Ro-JSB">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="387" width="101" height="26"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="msO-XB-zBj">
+                                <rect key="frame" x="260" y="373" width="80" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="151" y="474" width="80" height="30"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="7" y="452" width="348" height="30"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                    <rect key="frame" x="360" y="379" width="80" height="30"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="66a-ki-kc0" kind="show" identifier="showPlayGuessRight" id="BoH-Om-SUV"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdy-gc-cvS">
+                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="109" y="258" width="182" height="162"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="117" y="205" width="182" height="162"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="yRJ-r0-fZb" id="CdD-4H-yGW"/>
+                                    <outlet property="delegate" destination="yRJ-r0-fZb" id="smX-Us-TF3"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="6Vd-fO-sSD"/>
+                                <exclude reference="xCh-eQ-ME0"/>
+                                <exclude reference="kJH-T4-YID"/>
+                                <exclude reference="jqo-Ag-9sH"/>
+                                <exclude reference="3Wm-Ro-JSB"/>
+                                <exclude reference="msO-XB-zBj"/>
+                                <exclude reference="cdy-gc-cvS"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="6Vd-fO-sSD"/>
+                                <include reference="xCh-eQ-ME0"/>
+                                <include reference="kJH-T4-YID"/>
+                                <include reference="jqo-Ag-9sH"/>
+                                <include reference="3Wm-Ro-JSB"/>
+                                <include reference="msO-XB-zBj"/>
+                                <include reference="cdy-gc-cvS"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="fromPickerView" destination="kJH-T4-YID" id="tea-wN-MRs"/>
+                        <outlet property="markedSwith" destination="jqo-Ag-9sH" id="d5p-4w-R0g"/>
+                        <outlet property="onlyMarkedLabel" destination="3Wm-Ro-JSB" id="GOd-hq-CFZ"/>
+                        <outlet property="startButton" destination="msO-XB-zBj" id="gIq-yo-CBe"/>
+                        <outlet property="toPickerView" destination="cdy-gc-cvS" id="3cO-CE-4ua"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C8v-VD-vHt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1494" y="492"/>
         </scene>
         <!--Solve Number View Controller-->
         <scene sceneID="12B-gH-fQg">
@@ -654,7 +830,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jZI-Jq-iuX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2470.5" y="-268"/>
+            <point key="canvasLocation" x="2343" y="-281.25"/>
         </scene>
         <!--Play Flash Cards View Controller-->
         <scene sceneID="jR2-77-q0j">
@@ -682,7 +858,24 @@
                 <tapGestureRecognizer id="S3J-2S-RQl"/>
                 <swipeGestureRecognizer direction="right" id="vwz-8Z-bBh"/>
             </objects>
-            <point key="canvasLocation" x="1158" y="641"/>
+            <point key="canvasLocation" x="483" y="1344.75"/>
+        </scene>
+        <!--Play Guess Right View Controller-->
+        <scene sceneID="Oab-46-HQq">
+            <objects>
+                <viewController id="66a-ki-kc0" customClass="PlayGuessRightViewController" customModule="NumberMemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SA4-hy-ZbM"/>
+                        <viewControllerLayoutGuide type="bottom" id="quv-9C-9yW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7mz-AK-2b9">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="USr-T6-Jli" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2326.5" y="492"/>
         </scene>
         <!--Set Values View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -701,7 +894,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1678.5" y="436"/>
+            <point key="canvasLocation" x="859.5" y="-806.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="38h-gw-u6P">

@@ -1,8 +1,8 @@
 //
-//  FlashcardViewController.swift
+//  GuessRightViewController.swift
 //  NumberMemo
 //
-//  Created by knut on 20/03/15.
+//  Created by knut on 19/04/15.
 //  Copyright (c) 2015 knut. All rights reserved.
 //
 
@@ -10,32 +10,25 @@ import Foundation
 import UIKit
 import CoreData
 
-class FlashcardViewController: UIViewController{
+class GuessRightViewController: UIViewController{
     
-    
-
-    
-    @IBOutlet weak var autorevealSwitch: UISwitch!
     @IBOutlet weak var onlyMarkedLabel: UILabel!
     @IBOutlet weak var startButton: UIButton!
-    @IBOutlet weak var randomizeSwith: UISwitch!
+
     @IBOutlet weak var markedSwith: UISwitch!
     @IBOutlet weak var fromPickerView: UIPickerView!
     @IBOutlet weak var toPickerView: UIPickerView!
-
-    @IBAction func randomizeSwitchChanged(sender: UISwitch) {
-
-    }
+    
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
     var relationItems = [Relation]()
-
+    
     func fetchRelations() {
         
         let fetchRequest = NSFetchRequest(entityName: "Relation")
         let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-
+        
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
             relationItems = fetchResults
         }
@@ -45,14 +38,14 @@ class FlashcardViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       fetchRelations()
+        fetchRelations()
         
         if(relationItems.count == 0)
         {
             startButton.alpha = 0.0
         }
     }
-
+    
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -62,7 +55,7 @@ class FlashcardViewController: UIViewController{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -99,20 +92,17 @@ class FlashcardViewController: UIViewController{
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String
     {
-
-            return relationItems[row].number
+        
+        return relationItems[row].number
     }
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
-        if (segue.identifier == "ToFlashCardPlay") {
-            var svc = segue!.destinationViewController as PlayFlashCardsViewController;
+        if (segue.identifier == "showPlayGuessRight") {
+            var svc = segue!.destinationViewController as PlayGuessRightViewController;
             
             svc.maxCardIndex = toSelectedRow
             svc.minCardIndex = fromSelectedRow
-            svc.randomize = randomizeSwith.on
             svc.onlyMarked = markedSwith.on
-            svc.autoreveal = autorevealSwitch.on
-            
         }
     }
 }

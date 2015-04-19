@@ -56,6 +56,10 @@ class PlaySolveNumberViewController: UIViewController{
             {
                 correctNumbersLabel.text = fetchResults[0].correctnumber
                 wrongNumbersLabel.text = fetchResults[0].wrongnumber
+                if(correctNumbersLabel.text?.utf16Count > 0)
+                {
+                    charNumberInNumber = correctNumbersLabel.text!.utf16Count
+                }
             }
             staticstoreItems = fetchResults
         }

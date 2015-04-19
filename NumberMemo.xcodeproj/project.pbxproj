@@ -18,6 +18,9 @@
 		72A58BF81AB6188C0090EF05 /* NumberMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A58BF71AB6188C0090EF05 /* NumberMemoTests.swift */; };
 		72A58C021AB6471E0090EF05 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A58C011AB6471E0090EF05 /* Relation.swift */; };
 		72A58C031AB660BB0090EF05 /* SetValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A58BE31AB6188C0090EF05 /* SetValuesViewController.swift */; };
+		72E539E41AE398390097CFED /* GuessRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E31AE398390097CFED /* GuessRightViewController.swift */; };
+		72E539E61AE39ABC0097CFED /* PlayGuessRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E51AE39ABC0097CFED /* PlayGuessRightViewController.swift */; };
+		72E539E81AE3A01A0097CFED /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E71AE3A01A0097CFED /* Question.swift */; };
 		72F237F71ABB9AF50046518F /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F237F61ABB9AF50046518F /* MainMenuViewController.swift */; };
 		72F237FF1ABD88D10046518F /* SolveNumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F237FE1ABD88D10046518F /* SolveNumberViewController.swift */; };
 		72F238011ABD90E60046518F /* FlashcardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F238001ABD90E60046518F /* FlashcardViewController.swift */; };
@@ -54,6 +57,9 @@
 		72A58BF61AB6188C0090EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72A58BF71AB6188C0090EF05 /* NumberMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMemoTests.swift; sourceTree = "<group>"; };
 		72A58C011AB6471E0090EF05 /* Relation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
+		72E539E31AE398390097CFED /* GuessRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuessRightViewController.swift; sourceTree = "<group>"; };
+		72E539E51AE39ABC0097CFED /* PlayGuessRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayGuessRightViewController.swift; sourceTree = "<group>"; };
+		72E539E71AE3A01A0097CFED /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		72F237F61ABB9AF50046518F /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		72F237FE1ABD88D10046518F /* SolveNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolveNumberViewController.swift; sourceTree = "<group>"; };
 		72F238001ABD90E60046518F /* FlashcardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashcardViewController.swift; sourceTree = "<group>"; };
@@ -102,13 +108,15 @@
 		72A58BDB1AB6188C0090EF05 /* NumberMemo */ = {
 			isa = PBXGroup;
 			children = (
-				72F238001ABD90E60046518F /* FlashcardViewController.swift */,
 				72A58BDE1AB6188C0090EF05 /* AppDelegate.swift */,
 				72A58BE31AB6188C0090EF05 /* SetValuesViewController.swift */,
 				72F237F61ABB9AF50046518F /* MainMenuViewController.swift */,
-				72F237FE1ABD88D10046518F /* SolveNumberViewController.swift */,
 				725DDC261ABE641C001392F5 /* PlaySolveNumberViewController.swift */,
+				72F237FE1ABD88D10046518F /* SolveNumberViewController.swift */,
 				725DDC241ABE3248001392F5 /* PlayFlashCardsViewController.swift */,
+				72F238001ABD90E60046518F /* FlashcardViewController.swift */,
+				72E539E31AE398390097CFED /* GuessRightViewController.swift */,
+				72E539E51AE39ABC0097CFED /* PlayGuessRightViewController.swift */,
 				72A58BE51AB6188C0090EF05 /* Main.storyboard */,
 				72A58BE81AB6188C0090EF05 /* Images.xcassets */,
 				72A58BEA1AB6188C0090EF05 /* LaunchScreen.xib */,
@@ -117,6 +125,7 @@
 				72FE6A1A1ABF784C00FF792D /* Staticstore.swift */,
 				72A58BDC1AB6188C0090EF05 /* Supporting Files */,
 				725DDC221ABE2F1A001392F5 /* Card.swift */,
+				72E539E71AE3A01A0097CFED /* Question.swift */,
 			);
 			path = NumberMemo;
 			sourceTree = "<group>";
@@ -249,12 +258,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				72F238011ABD90E60046518F /* FlashcardViewController.swift in Sources */,
+				72E539E41AE398390097CFED /* GuessRightViewController.swift in Sources */,
 				72FE6A1B1ABF784C00FF792D /* Staticstore.swift in Sources */,
 				72F237FF1ABD88D10046518F /* SolveNumberViewController.swift in Sources */,
 				72A58BE21AB6188C0090EF05 /* NumberMemo.xcdatamodeld in Sources */,
+				72E539E81AE3A01A0097CFED /* Question.swift in Sources */,
 				725DDC251ABE3248001392F5 /* PlayFlashCardsViewController.swift in Sources */,
 				72F237F71ABB9AF50046518F /* MainMenuViewController.swift in Sources */,
 				725DDC271ABE641C001392F5 /* PlaySolveNumberViewController.swift in Sources */,
+				72E539E61AE39ABC0097CFED /* PlayGuessRightViewController.swift in Sources */,
 				72A58BDF1AB6188C0090EF05 /* AppDelegate.swift in Sources */,
 				72A58C031AB660BB0090EF05 /* SetValuesViewController.swift in Sources */,
 				72A58C021AB6471E0090EF05 /* Relation.swift in Sources */,
