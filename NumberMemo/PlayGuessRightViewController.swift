@@ -9,15 +9,18 @@
 import Foundation
 import UIKit
 import CoreData
+import AVFoundation
 
 class PlayGuessRightViewController: UIViewController{
     
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
     var questions:Array<Question> = Array<Question>()
+    var allQuestions:Array<Question> = Array<Question>()
     var currentQuestion = 0
     
     var questionLabel: UILabel!
+    var averageLabel: UILabel!
     var answerButtons:[UIButton] = []
     //var labelBack: UILabel!
     //var cardView: UIView!
@@ -36,6 +39,13 @@ class PlayGuessRightViewController: UIViewController{
     var timerRunning = false
     var timer = NSTimer()
     
+    var audioPlayer = AVAudioPlayer()
+    var correctSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("correct", ofType: "wav")!)
+    var failedSounds = [NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("wrong1", ofType: "wav")!),NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("wrong2", ofType: "mp3")!)]
+    var timeupSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("timeup", ofType: "mp3")!)
+
+    var timeupTime:Int = 10
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +56,9 @@ class PlayGuessRightViewController: UIViewController{
         
         // Store the full frame in a temporary variable
         var viewFrame = self.view.frame
+        
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
         
         // Adjust it down by 20 points
         //viewFrame.origin.y += 20
@@ -71,25 +84,32 @@ class PlayGuessRightViewController: UIViewController{
         
         fetchRelations()
         
-        questionLabel = UILabel(frame: CGRectMake(0, 0, 100, 60))
-        questionLabel.textAlignment = NSTextAlignment.Center
-        questionLabel.font = UIFont.boldSystemFontOfSize(20)
-        questionLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: UIScreen.mainScreen().bounds.size.height * 0.30)
-        questionLabel.text = questions[currentQuestion].value
-        self.view.addSubview(questionLabel)
-        
-        
-        self.populateAnswerButtons()
-        
-        self.setAnswersOnButtons()
-
-        
         labelTimer = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 40))
         labelTimer.textAlignment = NSTextAlignment.Center
         labelTimer.font = UIFont.boldSystemFontOfSize(20)
         labelTimer.numberOfLines = 2
         labelTimer.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: UIScreen.mainScreen().bounds.size.height * 0.15 )
         self.view.addSubview(labelTimer)
+        
+        questionLabel = UILabel(frame: CGRectMake(0, 0, 100, 60))
+        questionLabel.textAlignment = NSTextAlignment.Center
+        questionLabel.font = UIFont.boldSystemFontOfSize(40)
+        questionLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: UIScreen.mainScreen().bounds.size.height * 0.22)
+        questionLabel.text = questions[currentQuestion].value
+        self.view.addSubview(questionLabel)
+        
+        averageLabel = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 40 * 3))
+        averageLabel.textAlignment = NSTextAlignment.Center
+        averageLabel.font = UIFont.boldSystemFontOfSize(20)
+        averageLabel.numberOfLines = 3
+        averageLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: (UIScreen.mainScreen().bounds.size.height * 0.30) + labelTimer.frame.height)
+        averageLabel.text = "Average correct time: \(self.questions[self.currentQuestion].nsManagedObject.avg) \n Answered correct: \(self.questions[self.currentQuestion].nsManagedObject.timesanswered) \n Answered wrong: \(self.questions[self.currentQuestion].nsManagedObject.timesfailed)"
+        
+        self.view.addSubview(averageLabel)
+        
+        self.populateAnswerButtons()
+        
+        self.setAnswersOnButtons()
         
         startTimer()
         
@@ -100,8 +120,8 @@ class PlayGuessRightViewController: UIViewController{
         var rightAnswerIndex = randomNumber(range: 0...4)
         for(var i = 0 ; i < 5 ; i++)
         {
-            var tempButton = UIButton(frame: CGRectMake(0, 0 , 200, 40))
-            var y = CGFloat(45 * i) + questionLabel.frame.maxY + questionLabel.frame.height
+            var tempButton = UIButton(frame: CGRectMake(0, 0 , UIScreen.mainScreen().bounds.size.width, 40))
+            var y = CGFloat(45 * i) + averageLabel.frame.maxY + 20
             
             tempButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, y)
             
@@ -115,12 +135,42 @@ class PlayGuessRightViewController: UIViewController{
         }
     }
     
+    func addQuestion(relation:Relation, allQuestionsCollecton:Bool = false)
+    {
+        var questionText = relation.number +  (relation.marked == 1 ? self.makedString : "")
+        var answers:[String] = []
+        if(relation.verb != "")
+        {
+            answers.append(relation.verb)
+        }
+        if(relation.subject != "")
+        {
+            answers.append(relation.subject)
+        }
+        if(relation.other != "")
+        {
+            answers.append(relation.other)
+        }
+        if(answers.count > 0)
+        {
+            if(allQuestionsCollecton)
+            {
+                self.allQuestions.append(Question(question: questionText, answers:answers, marked:relation.marked, nsManagedObject: relation))
+            }
+            else
+            {
+                self.questions.append(Question(question: questionText, answers:answers, marked:relation.marked, nsManagedObject: relation))
+            }
+        }
+    }
+    
     func fetchRelations() {
         
         let fetchRequest = NSFetchRequest(entityName: "Relation")
         let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
+        /*
         var addQuestionClosure:(Relation) -> () = {
             var questionText = $0.number +  ($0.marked == 1 ? self.makedString : "")
             var answers:[String] = []
@@ -141,22 +191,27 @@ class PlayGuessRightViewController: UIViewController{
                 self.questions.append(Question(question: questionText, answers:answers, marked:$0.marked, nsManagedObject: $0))
             }
         }
-        
+        */
         
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
             
+            for relation in fetchResults
+            {
+                addQuestion(relation,allQuestionsCollecton: true)
+                
+            }
             for(var i = minCardIndex; i <= maxCardIndex ; i++)
             {
                 if(onlyMarked)
                 {
                     if(fetchResults[i].marked == 1)
                     {
-                        addQuestionClosure(fetchResults[i])
+                        addQuestion(fetchResults[i])
                     }
                 }
                 else
                 {
-                    addQuestionClosure(fetchResults[i])
+                    addQuestion(fetchResults[i])
                 }
             }
             if(questions.count == 0)
@@ -177,7 +232,7 @@ class PlayGuessRightViewController: UIViewController{
                 
                 for(var i = minCardIndex; i <= maxCardIndex ; i++)
                 {
-                    addQuestionClosure(fetchResults[i])
+                    addQuestion(fetchResults[i])
                 }
             }
             questions = shuffle(questions)
@@ -192,11 +247,11 @@ class PlayGuessRightViewController: UIViewController{
     
     func getRandowAnswer(questionNotToUse:Question) -> (String)
     {
-        var randNumber = randomNumber(range: 0...(questions.count - 1))
-        var randomQueston = questions[randNumber]
+        var randNumber = randomNumber(range: 0...(allQuestions.count - 1))
+        var randomQueston = allQuestions[randNumber]
         if(randomQueston.value == questionNotToUse.value)
         {
-            randomQueston = questions[(randNumber + 1) % questions.count]
+            randomQueston = allQuestions[(randNumber + 1) % allQuestions.count]
         }
         var randomAnswer = getOneRightAnswer(randomQueston)
         return randomAnswer
@@ -253,10 +308,10 @@ class PlayGuessRightViewController: UIViewController{
         
         if(autoreveal)
         {
-            if(timerCount >= 10)
+            if(timerCount >= timeupTime)
             {
                 labelTimer.text = "Time up"
-                timerCount = 0
+                
                 var rightAnswerButton:UIButton!
                 for button in answerButtons
                 {
@@ -273,7 +328,6 @@ class PlayGuessRightViewController: UIViewController{
     
     func giveAnswer(sender: AnyObject?)
     {
-        timerCount = 0
         var button = sender as UIButton
         var answerGiven = button.titleLabel?.text
         var rightAnswer = false
@@ -288,37 +342,59 @@ class PlayGuessRightViewController: UIViewController{
         animateNextQueston(button,rightAnswer: rightAnswer)
     }
     
-    func animateNextQueston(button:UIButton?, rightAnswer:Bool = false)
+    func calculateNewAverage() -> Float
+    {
+        return ((self.questions[self.currentQuestion].nsManagedObject.avg * Float(self.questions[self.currentQuestion].nsManagedObject.timesanswered))
+            + Float(self.timerCount)) / Float(self.questions[self.currentQuestion].nsManagedObject.timesanswered + 1)
+    }
+    
+    func animateNextQueston(button:UIButton, rightAnswer:Bool = false)
     {
         UIView.animateWithDuration(0.5, delay: 0.0,
             options: UIViewAnimationOptions.CurveLinear,
             animations: {
-                if(button != nil)
-                {
+                var error:NSError?
                 if(rightAnswer)
                 {
-                    button!.backgroundColor = UIColor.greenColor()
+                    
+                    self.audioPlayer = AVAudioPlayer(contentsOfURL: self.correctSound, error: &error)
+
+                    
+                    button.backgroundColor = UIColor.greenColor()
                     self.questionLabel.text = "😃"
+                    var newAverage = self.calculateNewAverage()
+                    
+                    self.questions[self.currentQuestion].nsManagedObject.avg = newAverage
+                        //+ timer) / (questions[currentQuestion].nsManagedObject.timesanswered + 1)
+                    self.questions[self.currentQuestion].nsManagedObject.timesanswered = self.questions[self.currentQuestion].nsManagedObject.timesanswered + 1
+                    self.save()
+                    
+                    //self.averageLabel.text = "Average: \(self.questions[self.currentQuestion].nsManagedObject.avg)"
                 }
                 else
                 {
-                    button!.backgroundColor = UIColor.redColor()
+
+                    self.audioPlayer = AVAudioPlayer(contentsOfURL: self.failedSounds[self.randomNumber(range: 0...1)], error: &error)
+                    self.questions[self.currentQuestion].nsManagedObject.timesfailed = self.questions[self.currentQuestion].nsManagedObject.timesfailed + 1
+                    button.backgroundColor = UIColor.redColor()
                     self.questionLabel.text = "😩"
                 }
-                }
-                else
+                if(self.timerCount >= self.timeupTime)
                 {
-                    self.questionLabel.text = "😩"
+                    self.audioPlayer = AVAudioPlayer(contentsOfURL: self.timeupSound, error: &error)
                 }
+                self.audioPlayer.prepareToPlay()
+                self.audioPlayer.play()
+                self.timerCount = 0
+
             },
             completion: ({finished in
                 if (finished) {
                     UIView.animateWithDuration(0.5, delay: 0.0,
                         options: UIViewAnimationOptions.CurveLinear, animations: {
-                            if(button != nil)
-                            {
-                                button!.backgroundColor = UIColor.blackColor()
-                            }
+
+                            button.backgroundColor = UIColor.blackColor()
+                            
                         },completion: ({finished in
                             if (finished) {
                                 self.showNextQuestion()
@@ -336,7 +412,7 @@ class PlayGuessRightViewController: UIViewController{
             button.enabled = true
         }
         currentQuestion = (currentQuestion + 1) % questions.count
-        
+                averageLabel.text = "Average correct time: \(self.questions[self.currentQuestion].nsManagedObject.avg) \n Answered correct: \(self.questions[self.currentQuestion].nsManagedObject.timesanswered) \n Answered wrong: \(self.questions[self.currentQuestion].nsManagedObject.timesfailed)"
         questionLabel.text = questions[currentQuestion].value
         
         self.setAnswersOnButtons()
@@ -349,88 +425,43 @@ class PlayGuessRightViewController: UIViewController{
         for answerButton in answerButtons
         {
             
-            var answerText = "Did not find unique answer"
-            var uniqueAnswer = false
-            while uniqueAnswer == false
+            var answerText:String!
+            var uniqueAnswer = true
+            var tries = 0
+            do
             {
-                answerText = getRandowAnswer(questions[currentQuestion])
+                tries++
+                uniqueAnswer = true
+                
                 if(rightAnswerIndex == i)
                 {
                     answerText = getOneRightAnswer(questions[currentQuestion])
                     
                 }
-                for answer in answerButtons
+                else
                 {
-                    if(answerText != answer.titleLabel?.text)
+                    answerText = getRandowAnswer(questions[currentQuestion])
+                    for answer in answerButtons
+                    {
+                        if(answerText == answer.titleLabel?.text || contains( questions[currentQuestion].answers, answerText))
+                        {
+                            uniqueAnswer = false
+                        }
+                    }
+                    if(tries > 30)
                     {
                         uniqueAnswer = true
+                        answerText = "Did not find unique answer"
                     }
                 }
-            }
+            }while(uniqueAnswer == false)
             
             answerButton.backgroundColor = UIColor.blackColor()
             answerButton.setTitle(answerText, forState: UIControlState.Normal)
             i++
         }
     }
-    /*
-    var showingBack = false
-    
-    func flipCard(sender: AnyObject?) {
-        
-        labelBack.hidden = false
-        if (showingBack) {
-            UIView.transitionFromView(labelBack, toView: labelFront, duration: 0.35, options: UIViewAnimationOptions.TransitionFlipFromRight, completion: nil)
-            showingBack = false
-        } else {
-            UIView.transitionFromView(labelFront, toView: labelBack, duration: 0.35, options: UIViewAnimationOptions.TransitionFlipFromLeft, completion: nil)
-            showingBack = true
-        }
-        if(!autoreveal)
-        {
-            pauseTimer()
-        }
-    }
-    
-    @IBAction func nextCard(sender: AnyObject?) {
-        
-        
-        if (showingBack) {
-            UIView.transitionFromView(labelBack, toView: labelFront, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromRight, completion: nil)
-            showingBack = false
-            labelBack.hidden = true
-        }
-        // Add the animation to the View's layer
-        self.cardView.layer.addAnimation(slideInFromRightTransition, forKey: "slideInFromRightTransition")
-        
-        
-        self.currentCard++
-        self.currentCard = self.currentCard % cards.count
-        labelFront.text = cards[currentCard].front
-        labelBack.text = cards[currentCard].back
-        
-        startTimer()
-    }
-    
-    @IBAction func lastCard(sender: AnyObject) {
-        
-        if (showingBack) {
-            UIView.transitionFromView(labelBack, toView: labelFront, duration: 1, options: UIViewAnimationOptions.TransitionFlipFromRight, completion: nil)
-            showingBack = false
-            labelBack.hidden = true
-        }
-        // Add the animation to the View's layer
-        self.cardView.layer.addAnimation(slideInFromLeftTransition, forKey: "slideInFromLeftTransition")
-        
-        self.currentCard--
-        self.currentCard = self.currentCard < 0 ? (cards.count - 1) : self.currentCard
-        labelFront.text = cards[currentCard].front
-        labelBack.text = cards[currentCard].back
-        
-        startTimer()
-    }
-*/
-    
+
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)

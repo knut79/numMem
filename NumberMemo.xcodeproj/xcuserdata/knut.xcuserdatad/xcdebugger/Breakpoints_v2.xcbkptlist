@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NumberMemo/PlayGuessRightViewController.swift"
-            timestampString = "451144099.954866"
+            timestampString = "451157179.047153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
+            startingLineNumber = "424"
+            endingLineNumber = "424"
             landmarkName = "setAnswersOnButtons()"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NumberMemo/PlayGuessRightViewController.swift"
-            timestampString = "451144099.954866"
+            timestampString = "451157179.047153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "428"
+            endingLineNumber = "428"
             landmarkName = "setAnswersOnButtons()"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NumberMemo/PlayGuessRightViewController.swift"
-            timestampString = "451144099.954866"
+            timestampString = "451157179.047153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "setAnswersOnButtons()"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,43 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NumberMemo/PlayGuessRightViewController.swift"
-            timestampString = "451144099.954866"
+            timestampString = "451157179.047153"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "setAnswersOnButtons()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NumberMemo/PlayGuessRightViewController.swift"
-            timestampString = "451144099.954866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
-            landmarkName = "setAnswersOnButtons()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NumberMemo/PlayGuessRightViewController.swift"
-            timestampString = "451144099.954866"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "setAnswersOnButtons()"
             landmarkType = "5">
          </BreakpointContent>

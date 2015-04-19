@@ -32,8 +32,11 @@ class GuessRightViewController: UIViewController{
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
             relationItems = fetchResults
         }
+        if(relationItems.count > 0)
+        {
         toPickerView.selectRow(relationItems.count - 1, inComponent: 0, animated: true)
         toSelectedRow = relationItems.count - 1
+        }
     }
     
     override func viewDidLoad() {

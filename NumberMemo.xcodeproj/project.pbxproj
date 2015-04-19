@@ -18,6 +18,11 @@
 		72A58BF81AB6188C0090EF05 /* NumberMemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A58BF71AB6188C0090EF05 /* NumberMemoTests.swift */; };
 		72A58C021AB6471E0090EF05 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A58C011AB6471E0090EF05 /* Relation.swift */; };
 		72A58C031AB660BB0090EF05 /* SetValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A58BE31AB6188C0090EF05 /* SetValuesViewController.swift */; };
+		72CAF3E91AE416DA00B4072B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAF3E81AE416DA00B4072B /* AVFoundation.framework */; };
+		72CAF3EE1AE4190D00B4072B /* timeup.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3EA1AE4190D00B4072B /* timeup.mp3 */; };
+		72CAF3EF1AE4190D00B4072B /* wrong2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3EB1AE4190D00B4072B /* wrong2.mp3 */; };
+		72CAF3F01AE4190D00B4072B /* wrong1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3EC1AE4190D00B4072B /* wrong1.wav */; };
+		72CAF3F11AE4190D00B4072B /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3ED1AE4190D00B4072B /* correct.wav */; };
 		72E539E41AE398390097CFED /* GuessRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E31AE398390097CFED /* GuessRightViewController.swift */; };
 		72E539E61AE39ABC0097CFED /* PlayGuessRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E51AE39ABC0097CFED /* PlayGuessRightViewController.swift */; };
 		72E539E81AE3A01A0097CFED /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E71AE3A01A0097CFED /* Question.swift */; };
@@ -57,9 +62,18 @@
 		72A58BF61AB6188C0090EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		72A58BF71AB6188C0090EF05 /* NumberMemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberMemoTests.swift; sourceTree = "<group>"; };
 		72A58C011AB6471E0090EF05 /* Relation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
+		72CAF3E81AE416DA00B4072B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		72CAF3EA1AE4190D00B4072B /* timeup.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = timeup.mp3; path = " sounds/timeup.mp3"; sourceTree = "<group>"; };
+		72CAF3EB1AE4190D00B4072B /* wrong2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = wrong2.mp3; path = " sounds/wrong2.mp3"; sourceTree = "<group>"; };
+		72CAF3EC1AE4190D00B4072B /* wrong1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wrong1.wav; path = " sounds/wrong1.wav"; sourceTree = "<group>"; };
+		72CAF3ED1AE4190D00B4072B /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = correct.wav; path = " sounds/correct.wav"; sourceTree = "<group>"; };
 		72E539E31AE398390097CFED /* GuessRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuessRightViewController.swift; sourceTree = "<group>"; };
 		72E539E51AE39ABC0097CFED /* PlayGuessRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayGuessRightViewController.swift; sourceTree = "<group>"; };
 		72E539E71AE3A01A0097CFED /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		72E539E91AE3F0B80097CFED /* NumberMemo 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 7.xcdatamodel"; sourceTree = "<group>"; };
+		72E539EA1AE3F1C50097CFED /* NumberMemo 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 8.xcdatamodel"; sourceTree = "<group>"; };
+		72E539EB1AE408700097CFED /* NumberMemo 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 9.xcdatamodel"; sourceTree = "<group>"; };
+		72E539EC1AE40F660097CFED /* NumberMemo 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 10.xcdatamodel"; sourceTree = "<group>"; };
 		72F237F61ABB9AF50046518F /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		72F237FE1ABD88D10046518F /* SolveNumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolveNumberViewController.swift; sourceTree = "<group>"; };
 		72F238001ABD90E60046518F /* FlashcardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashcardViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72CAF3E91AE416DA00B4072B /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +105,7 @@
 		72A58BD01AB6188C0090EF05 = {
 			isa = PBXGroup;
 			children = (
+				72CAF3E81AE416DA00B4072B /* AVFoundation.framework */,
 				72A58BDB1AB6188C0090EF05 /* NumberMemo */,
 				72A58BF41AB6188C0090EF05 /* NumberMemoTests */,
 				72A58BDA1AB6188C0090EF05 /* Products */,
@@ -133,6 +149,10 @@
 		72A58BDC1AB6188C0090EF05 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				72CAF3EA1AE4190D00B4072B /* timeup.mp3 */,
+				72CAF3EB1AE4190D00B4072B /* wrong2.mp3 */,
+				72CAF3EC1AE4190D00B4072B /* wrong1.wav */,
+				72CAF3ED1AE4190D00B4072B /* correct.wav */,
 				72FE6B3A1AC2D44600FF792D /* Icon.png */,
 				72A58BDD1AB6188C0090EF05 /* Info.plist */,
 			);
@@ -236,9 +256,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72CAF3F01AE4190D00B4072B /* wrong1.wav in Resources */,
+				72CAF3F11AE4190D00B4072B /* correct.wav in Resources */,
 				72FE6B3B1AC2D44600FF792D /* Icon.png in Resources */,
+				72CAF3EF1AE4190D00B4072B /* wrong2.mp3 in Resources */,
 				72A58BE71AB6188C0090EF05 /* Main.storyboard in Resources */,
 				72A58BEC1AB6188C0090EF05 /* LaunchScreen.xib in Resources */,
+				72CAF3EE1AE4190D00B4072B /* timeup.mp3 in Resources */,
 				72A58BE91AB6188C0090EF05 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,6 +505,10 @@
 		72A58BE01AB6188C0090EF05 /* NumberMemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				72E539EC1AE40F660097CFED /* NumberMemo 10.xcdatamodel */,
+				72E539EB1AE408700097CFED /* NumberMemo 9.xcdatamodel */,
+				72E539EA1AE3F1C50097CFED /* NumberMemo 8.xcdatamodel */,
+				72E539E91AE3F0B80097CFED /* NumberMemo 7.xcdatamodel */,
 				72FE6B371AC2247F00FF792D /* NumberMemo 6.xcdatamodel */,
 				72FE6A191ABF779000FF792D /* NumberMemo 5.xcdatamodel */,
 				725DDC2B1ABF0631001392F5 /* NumberMemo 4.xcdatamodel */,
@@ -488,7 +516,7 @@
 				7201DC311ABB78C2000EAEC5 /* NumberMemo 2.xcdatamodel */,
 				72A58BE11AB6188C0090EF05 /* NumberMemo.xcdatamodel */,
 			);
-			currentVersion = 72FE6B371AC2247F00FF792D /* NumberMemo 6.xcdatamodel */;
+			currentVersion = 72E539EC1AE40F660097CFED /* NumberMemo 10.xcdatamodel */;
 			path = NumberMemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

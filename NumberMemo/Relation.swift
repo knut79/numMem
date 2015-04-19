@@ -16,6 +16,9 @@ class Relation: NSManagedObject {
     @NSManaged var verb: String
     @NSManaged var subject: String
     @NSManaged var marked: Boolean
+    @NSManaged var avg:Float
+    @NSManaged var timesanswered:Int16
+    @NSManaged var timesfailed:Int16
     //@NSManaged var numberrelationsubject: String
     
     class func createInManagedObjectContext(moc: NSManagedObjectContext, number: String, verb: String, subject: String, otherrelation: String) -> Relation{
@@ -25,8 +28,11 @@ class Relation: NSManagedObject {
         newitem.subject = subject
         newitem.other = otherrelation
         newitem.marked = 0
+        newitem.avg = 0.0
+        newitem.timesanswered = 0
+        newitem.timesfailed = 0
         
         return newitem
     }
-
+    
 }

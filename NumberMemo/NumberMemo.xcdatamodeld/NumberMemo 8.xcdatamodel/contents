@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="13F34" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Relation" representedClassName="NumberMemo.Relation" syncable="YES">
+        <attribute name="avg" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="marked" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="other" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timesanswered" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="verb" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Staticstore" representedClassName="NumberMemo.Staticstore" syncable="YES">
+        <attribute name="correctnumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wholenumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wrongnumber" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Relation" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="Staticstore" positionX="-54" positionY="27" width="128" height="88"/>
+    </elements>
+</model>
