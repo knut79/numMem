@@ -15,6 +15,7 @@ class Staticstore: NSManagedObject {
     @NSManaged var wholenumber: String
     @NSManaged var correctnumber: String
     @NSManaged var wrongnumber: String
+    @NSManaged var beststrike:Int16
     
     
     class func createInManagedObjectContext(moc: NSManagedObjectContext, wholenumber:String, rightnumber: String, wrongnumber: String) -> Staticstore{
@@ -23,6 +24,7 @@ class Staticstore: NSManagedObject {
         newitem.correctnumber = rightnumber
         newitem.wrongnumber = wrongnumber
         newitem.wholenumber = wholenumber
+        newitem.beststrike = 0
         
         return newitem
     }

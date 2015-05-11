@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 import CoreData
-
-class PlayFlashCardsViewController: UIViewController{
+import iAd
+class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
     
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
@@ -34,13 +34,16 @@ class PlayFlashCardsViewController: UIViewController{
     var timerRunning = false
     var timer = NSTimer()
     
+    var bannerView:ADBannerView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Now that the view loaded, we have a frame for the view, which will be (0,0,screen width, screen height)
-        // This is a good size for the table view as well, so let's use that
-        // The only adjust we'll make is to move it down by 20 pixels, and reduce the size by 20 pixels
-        // in order to account for the status bar
+        self.canDisplayBannerAds = true
+        bannerView = ADBannerView(frame: CGRectMake(0, UIScreen.mainScreen().bounds.size.height - 44, UIScreen.mainScreen().bounds.size.width, 44))
+        self.view.addSubview(bannerView!)
+        self.bannerView?.delegate = self
+        self.bannerView?.hidden = false
         
         // Store the full frame in a temporary variable
         var viewFrame = self.view.frame
@@ -357,15 +360,29 @@ class PlayFlashCardsViewController: UIViewController{
         
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        timer.invalidate()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func bannerViewDidLoadAd(banner: ADBannerView!) {
+        self.bannerView?.hidden = false
+    }
+    
+    func bannerViewActionShouldBegin(banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
+        return willLeave
+    }
+    
+    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+        self.bannerView?.hidden = true
     }
     
     

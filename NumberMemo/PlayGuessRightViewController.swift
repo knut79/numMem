@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 import CoreData
 import AVFoundation
+import iAd
 
-class PlayGuessRightViewController: UIViewController{
+class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
@@ -20,7 +21,7 @@ class PlayGuessRightViewController: UIViewController{
     var currentQuestion = 0
     
     var questionLabel: UILabel!
-    var averageLabel: UILabel!
+    var infoLabel: UILabel!
     var answerButtons:[UIButton] = []
     //var labelBack: UILabel!
     //var cardView: UIView!
@@ -46,13 +47,16 @@ class PlayGuessRightViewController: UIViewController{
 
     var timeupTime:Int = 10
     
+    var bannerView:ADBannerView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Now that the view loaded, we have a frame for the view, which will be (0,0,screen width, screen height)
-        // This is a good size for the table view as well, so let's use that
-        // The only adjust we'll make is to move it down by 20 pixels, and reduce the size by 20 pixels
-        // in order to account for the status bar
+        self.canDisplayBannerAds = true
+        bannerView = ADBannerView(frame: CGRectMake(0, UIScreen.mainScreen().bounds.size.height - 44, UIScreen.mainScreen().bounds.size.width, 44))
+        self.view.addSubview(bannerView!)
+        self.bannerView?.delegate = self
+        self.bannerView?.hidden = false
         
         // Store the full frame in a temporary variable
         var viewFrame = self.view.frame
@@ -98,14 +102,21 @@ class PlayGuessRightViewController: UIViewController{
         questionLabel.text = questions[currentQuestion].value
         self.view.addSubview(questionLabel)
         
-        averageLabel = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 40 * 3))
-        averageLabel.textAlignment = NSTextAlignment.Center
-        averageLabel.font = UIFont.boldSystemFontOfSize(20)
-        averageLabel.numberOfLines = 3
-        averageLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: (UIScreen.mainScreen().bounds.size.height * 0.30) + labelTimer.frame.height)
-        averageLabel.text = "Average correct time: \(self.questions[self.currentQuestion].nsManagedObject.avg) \n Answered correct: \(self.questions[self.currentQuestion].nsManagedObject.timesanswered) \n Answered wrong: \(self.questions[self.currentQuestion].nsManagedObject.timesfailed)"
+        infoLabel = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 40 * 3))
+        infoLabel.textAlignment = NSTextAlignment.Center
+        infoLabel.font = UIFont.boldSystemFontOfSize(14)
+        infoLabel.numberOfLines = 4
+        infoLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: (UIScreen.mainScreen().bounds.size.height * 0.30) + labelTimer.frame.height)
         
-        self.view.addSubview(averageLabel)
+        
+        
+        fetchUserData()
+        
+        setInfoLabelText()
+        
+
+        
+        self.view.addSubview(infoLabel)
         
         self.populateAnswerButtons()
         
@@ -115,13 +126,18 @@ class PlayGuessRightViewController: UIViewController{
         
     }
     
+    func setInfoLabelText()
+    {
+            infoLabel.text = " Best strike: \(staticstoreItems[0].beststrike) \n Average correct time: \(self.questions[self.currentQuestion].nsManagedObject.avg) \n Answered correct: \(self.questions[self.currentQuestion].nsManagedObject.timesanswered) \n Answered wrong: \(self.questions[self.currentQuestion].nsManagedObject.timesfailed)"
+    }
+    
     func populateAnswerButtons()
     {
         var rightAnswerIndex = randomNumber(range: 0...4)
         for(var i = 0 ; i < 5 ; i++)
         {
             var tempButton = UIButton(frame: CGRectMake(0, 0 , UIScreen.mainScreen().bounds.size.width, 40))
-            var y = CGFloat(45 * i) + averageLabel.frame.maxY + 20
+            var y = CGFloat(45 * i) + infoLabel.frame.maxY + 20
             
             tempButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, y)
             
@@ -161,6 +177,30 @@ class PlayGuessRightViewController: UIViewController{
             {
                 self.questions.append(Question(question: questionText, answers:answers, marked:relation.marked, nsManagedObject: relation))
             }
+        }
+    }
+    
+    var staticstoreItems = [Staticstore]()
+    
+    func fetchUserData() {
+        
+        let fetchRequest = NSFetchRequest(entityName: "Staticstore")
+        
+        
+        let sortDescriptor = NSSortDescriptor(key: "beststrike", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        
+        var error: NSError?
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &error) as? [Staticstore]
+        {
+            if(error != nil)
+            {
+                println("Error executing request for entity \(error?.description)")
+            }
+            
+            println("length of fetchResults array \(fetchResults.count)")
+            staticstoreItems = fetchResults
         }
     }
     
@@ -279,6 +319,8 @@ class PlayGuessRightViewController: UIViewController{
         return list
     }
     
+    var currentCorrectAnswerStrike:Int16 = 0
+    
     func startTimer()
     {
         
@@ -359,7 +401,14 @@ class PlayGuessRightViewController: UIViewController{
                     
                     self.audioPlayer = AVAudioPlayer(contentsOfURL: self.correctSound, error: &error)
 
-                    
+                    self.currentCorrectAnswerStrike++
+                    if(self.currentCorrectAnswerStrike > self.staticstoreItems[0].beststrike)
+                    {
+                        self.infoLabel.text = "New strike record \(self.currentCorrectAnswerStrike)"
+                        self.staticstoreItems[0].beststrike = self.currentCorrectAnswerStrike
+                        self.save()
+                        
+                    }
                     button.backgroundColor = UIColor.greenColor()
                     self.questionLabel.text = "😃"
                     var newAverage = self.calculateNewAverage()
@@ -369,11 +418,11 @@ class PlayGuessRightViewController: UIViewController{
                     self.questions[self.currentQuestion].nsManagedObject.timesanswered = self.questions[self.currentQuestion].nsManagedObject.timesanswered + 1
                     self.save()
                     
-                    //self.averageLabel.text = "Average: \(self.questions[self.currentQuestion].nsManagedObject.avg)"
+                    //self.infoLabel.text = "Average: \(self.questions[self.currentQuestion].nsManagedObject.avg)"
                 }
                 else
                 {
-
+                    self.currentCorrectAnswerStrike = 0
                     self.audioPlayer = AVAudioPlayer(contentsOfURL: self.failedSounds[self.randomNumber(range: 0...1)], error: &error)
                     self.questions[self.currentQuestion].nsManagedObject.timesfailed = self.questions[self.currentQuestion].nsManagedObject.timesfailed + 1
                     button.backgroundColor = UIColor.redColor()
@@ -412,7 +461,8 @@ class PlayGuessRightViewController: UIViewController{
             button.enabled = true
         }
         currentQuestion = (currentQuestion + 1) % questions.count
-                averageLabel.text = "Average correct time: \(self.questions[self.currentQuestion].nsManagedObject.avg) \n Answered correct: \(self.questions[self.currentQuestion].nsManagedObject.timesanswered) \n Answered wrong: \(self.questions[self.currentQuestion].nsManagedObject.timesfailed)"
+        setInfoLabelText()
+
         questionLabel.text = questions[currentQuestion].value
         
         self.setAnswersOnButtons()
@@ -461,7 +511,10 @@ class PlayGuessRightViewController: UIViewController{
             i++
         }
     }
-
+    
+    override func viewDidDisappear(animated: Bool) {
+        timer.invalidate()
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -474,5 +527,16 @@ class PlayGuessRightViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
     
+    func bannerViewDidLoadAd(banner: ADBannerView!) {
+        self.bannerView?.hidden = false
+    }
+    
+    func bannerViewActionShouldBegin(banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
+        return willLeave
+    }
+    
+    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+        self.bannerView?.hidden = true
+    }
     
 }

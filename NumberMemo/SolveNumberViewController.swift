@@ -112,6 +112,8 @@ class SolveNumberViewController: UIViewController {
         setTextForNumberLabel(numberString)
         
         startButton.setTitle("Start", forState: .Normal)
+        startButton.enabled = true
+        startButton.alpha = 1.0
         numDigitsLabel.text = "\(numDigits) digits"
 
         staticstoreItems[0].wholenumber = numberString

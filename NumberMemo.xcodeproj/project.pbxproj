@@ -23,6 +23,9 @@
 		72CAF3EF1AE4190D00B4072B /* wrong2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3EB1AE4190D00B4072B /* wrong2.mp3 */; };
 		72CAF3F01AE4190D00B4072B /* wrong1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3EC1AE4190D00B4072B /* wrong1.wav */; };
 		72CAF3F11AE4190D00B4072B /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3ED1AE4190D00B4072B /* correct.wav */; };
+		72CAF3F31AE41F4B00B4072B /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAF3F21AE41F4B00B4072B /* AdSupport.framework */; };
+		72CAF3F51AE41F5300B4072B /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72CAF3F41AE41F5200B4072B /* iAd.framework */; };
+		72CAF3F71AE428B000B4072B /* finish.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 72CAF3F61AE428B000B4072B /* finish.mp3 */; };
 		72E539E41AE398390097CFED /* GuessRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E31AE398390097CFED /* GuessRightViewController.swift */; };
 		72E539E61AE39ABC0097CFED /* PlayGuessRightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E51AE39ABC0097CFED /* PlayGuessRightViewController.swift */; };
 		72E539E81AE3A01A0097CFED /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E539E71AE3A01A0097CFED /* Question.swift */; };
@@ -67,6 +70,10 @@
 		72CAF3EB1AE4190D00B4072B /* wrong2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = wrong2.mp3; path = " sounds/wrong2.mp3"; sourceTree = "<group>"; };
 		72CAF3EC1AE4190D00B4072B /* wrong1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wrong1.wav; path = " sounds/wrong1.wav"; sourceTree = "<group>"; };
 		72CAF3ED1AE4190D00B4072B /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = correct.wav; path = " sounds/correct.wav"; sourceTree = "<group>"; };
+		72CAF3F21AE41F4B00B4072B /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		72CAF3F41AE41F5200B4072B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		72CAF3F61AE428B000B4072B /* finish.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = finish.mp3; path = " sounds/finish.mp3"; sourceTree = "<group>"; };
+		72CAF4311AE77CE600B4072B /* NumberMemo 11.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NumberMemo 11.xcdatamodel"; sourceTree = "<group>"; };
 		72E539E31AE398390097CFED /* GuessRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuessRightViewController.swift; sourceTree = "<group>"; };
 		72E539E51AE39ABC0097CFED /* PlayGuessRightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayGuessRightViewController.swift; sourceTree = "<group>"; };
 		72E539E71AE3A01A0097CFED /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -88,6 +95,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72CAF3F51AE41F5300B4072B /* iAd.framework in Frameworks */,
+				72CAF3F31AE41F4B00B4072B /* AdSupport.framework in Frameworks */,
 				72CAF3E91AE416DA00B4072B /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +114,8 @@
 		72A58BD01AB6188C0090EF05 = {
 			isa = PBXGroup;
 			children = (
+				72CAF3F41AE41F5200B4072B /* iAd.framework */,
+				72CAF3F21AE41F4B00B4072B /* AdSupport.framework */,
 				72CAF3E81AE416DA00B4072B /* AVFoundation.framework */,
 				72A58BDB1AB6188C0090EF05 /* NumberMemo */,
 				72A58BF41AB6188C0090EF05 /* NumberMemoTests */,
@@ -149,6 +160,7 @@
 		72A58BDC1AB6188C0090EF05 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				72CAF3F61AE428B000B4072B /* finish.mp3 */,
 				72CAF3EA1AE4190D00B4072B /* timeup.mp3 */,
 				72CAF3EB1AE4190D00B4072B /* wrong2.mp3 */,
 				72CAF3EC1AE4190D00B4072B /* wrong1.wav */,
@@ -263,6 +275,7 @@
 				72A58BE71AB6188C0090EF05 /* Main.storyboard in Resources */,
 				72A58BEC1AB6188C0090EF05 /* LaunchScreen.xib in Resources */,
 				72CAF3EE1AE4190D00B4072B /* timeup.mp3 in Resources */,
+				72CAF3F71AE428B000B4072B /* finish.mp3 in Resources */,
 				72A58BE91AB6188C0090EF05 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,6 +518,7 @@
 		72A58BE01AB6188C0090EF05 /* NumberMemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				72CAF4311AE77CE600B4072B /* NumberMemo 11.xcdatamodel */,
 				72E539EC1AE40F660097CFED /* NumberMemo 10.xcdatamodel */,
 				72E539EB1AE408700097CFED /* NumberMemo 9.xcdatamodel */,
 				72E539EA1AE3F1C50097CFED /* NumberMemo 8.xcdatamodel */,
@@ -516,7 +530,7 @@
 				7201DC311ABB78C2000EAEC5 /* NumberMemo 2.xcdatamodel */,
 				72A58BE11AB6188C0090EF05 /* NumberMemo.xcdatamodel */,
 			);
-			currentVersion = 72E539EC1AE40F660097CFED /* NumberMemo 10.xcdatamodel */;
+			currentVersion = 72CAF4311AE77CE600B4072B /* NumberMemo 11.xcdatamodel */;
 			path = NumberMemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

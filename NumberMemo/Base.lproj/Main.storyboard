@@ -83,7 +83,7 @@
                                     <rect key="frame" x="30" y="185" width="276" height="21"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YO-3F-hoE">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test your skills" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4YO-3F-hoE">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -255,7 +255,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dDf-jq-LVh">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="176" y="464" width="51" height="31"/>
+                                    <rect key="frame" x="176" y="416" width="51" height="31"/>
                                 </variation>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autoreveal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmH-CN-p5r">
@@ -264,7 +264,22 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="464" width="101" height="31"/>
+                                    <rect key="frame" x="16" y="416" width="101" height="31"/>
+                                </variation>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gr0-33-NEh">
+                                <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="176" y="455" width="51" height="31"/>
+                                </variation>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Blm-GY-OIL">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="16" y="460" width="101" height="21"/>
                                 </variation>
                             </label>
                         </subviews>
@@ -284,6 +299,8 @@
                                 <exclude reference="RN4-1r-NFW"/>
                                 <exclude reference="dDf-jq-LVh"/>
                                 <exclude reference="SmH-CN-p5r"/>
+                                <exclude reference="gr0-33-NEh"/>
+                                <exclude reference="Blm-GY-OIL"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="Ykd-mM-Tui"/>
@@ -310,12 +327,15 @@
                             <mask key="subviews">
                                 <include reference="dDf-jq-LVh"/>
                                 <include reference="SmH-CN-p5r"/>
+                                <include reference="gr0-33-NEh"/>
+                                <include reference="Blm-GY-OIL"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="autorevealSwitch" destination="dDf-jq-LVh" id="W2R-JJ-i1A"/>
                         <outlet property="fromPickerView" destination="XfO-cf-UIm" id="gmU-Kq-TFM"/>
+                        <outlet property="markedSwith" destination="gr0-33-NEh" id="fv0-gu-1TI"/>
                         <outlet property="onlyMarkedLabel" destination="3Wm-Ro-JSB" id="SKG-Tc-SXR"/>
                         <outlet property="randomizeSwith" destination="AKv-XY-ZVA" id="rfg-q8-9Cf"/>
                         <outlet property="startButton" destination="nna-cF-ALU" id="WGj-XO-0R3"/>
@@ -335,6 +355,7 @@
                         <viewControllerLayoutGuide type="bottom" id="hmx-Kc-BmW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ngZ-om-ama">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Vd-fO-sSD">
@@ -389,7 +410,7 @@
                                     <rect key="frame" x="16" y="387" width="101" height="26"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="msO-XB-zBj">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="msO-XB-zBj">
                                 <rect key="frame" x="260" y="373" width="80" height="30"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <state key="normal" title="Start">
@@ -610,6 +631,9 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="27" y="87" width="262" height="71"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="64" width="262" height="71"/>
+                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwk-p2-eyz">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
@@ -619,6 +643,9 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="27" y="474" width="262" height="78"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="385" width="262" height="44"/>
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8C-t9-ois">
@@ -631,50 +658,11 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="27" y="398" width="149" height="44"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="333" width="149" height="44"/>
+                                </variation>
                                 <connections>
                                     <action selector="zeroButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="CO2-oh-B9T"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVV-CL-xvl">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="1">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="27" y="331" width="64" height="44"/>
-                                </variation>
-                                <connections>
-                                    <action selector="oneButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="tep-kd-w02"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKc-na-eHk">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="2">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="112" y="331" width="64" height="44"/>
-                                </variation>
-                                <connections>
-                                    <action selector="twoButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="r5Q-5A-dtf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B57-9K-ABg">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="3">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="194" y="331" width="64" height="44"/>
-                                </variation>
-                                <connections>
-                                    <action selector="threeButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="WzE-ab-uoD"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xdt-XS-64f">
@@ -686,6 +674,9 @@
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="194" y="398" width="64" height="44"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="194" y="333" width="64" height="44"/>
                                 </variation>
                                 <connections>
                                     <action selector="commaButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="9KU-e2-poE"/>
@@ -701,6 +692,9 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="27" y="271" width="64" height="44"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="206" width="64" height="44"/>
+                                </variation>
                                 <connections>
                                     <action selector="fourButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="36N-41-e4s"/>
                                 </connections>
@@ -714,6 +708,9 @@
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="112" y="271" width="64" height="44"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="112" y="206" width="64" height="44"/>
                                 </variation>
                                 <connections>
                                     <action selector="fiveButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="gCa-nx-LzK"/>
@@ -729,6 +726,9 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="194" y="271" width="64" height="44"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="194" y="206" width="64" height="44"/>
+                                </variation>
                                 <connections>
                                     <action selector="sixButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="SoZ-mM-lmZ"/>
                                 </connections>
@@ -742,6 +742,9 @@
                                 </state>
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="27" y="208" width="64" height="44"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="143" width="64" height="44"/>
                                 </variation>
                                 <connections>
                                     <action selector="sevenButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="HY1-b6-QNE"/>
@@ -757,6 +760,9 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="194" y="208" width="64" height="44"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="194" y="143" width="64" height="44"/>
+                                </variation>
                                 <connections>
                                     <action selector="nineButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="Wfu-Qj-z9t"/>
                                 </connections>
@@ -771,8 +777,62 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="112" y="208" width="64" height="44"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="112" y="143" width="64" height="44"/>
+                                </variation>
                                 <connections>
                                     <action selector="eightButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="c9W-UO-RDZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVV-CL-xvl">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="1">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="331" width="64" height="44"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="27" y="269" width="64" height="44"/>
+                                </variation>
+                                <connections>
+                                    <action selector="oneButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="tep-kd-w02"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sKc-na-eHk">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="2">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="112" y="331" width="64" height="44"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="112" y="269" width="64" height="44"/>
+                                </variation>
+                                <connections>
+                                    <action selector="twoButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="r5Q-5A-dtf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B57-9K-ABg">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="3">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="194" y="331" width="64" height="44"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="194" y="269" width="64" height="44"/>
+                                </variation>
+                                <connections>
+                                    <action selector="threeButtonPushed:" destination="pru-p1-G9Z" eventType="touchUpInside" id="WzE-ab-uoD"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -782,9 +842,6 @@
                                 <exclude reference="Z0A-DJ-g66"/>
                                 <exclude reference="iwk-p2-eyz"/>
                                 <exclude reference="H8C-t9-ois"/>
-                                <exclude reference="xVV-CL-xvl"/>
-                                <exclude reference="sKc-na-eHk"/>
-                                <exclude reference="B57-9K-ABg"/>
                                 <exclude reference="Xdt-XS-64f"/>
                                 <exclude reference="Qsa-ER-BT2"/>
                                 <exclude reference="Flu-kJ-u0i"/>
@@ -792,6 +849,9 @@
                                 <exclude reference="TNn-r7-1Rs"/>
                                 <exclude reference="wP9-qP-hxE"/>
                                 <exclude reference="g1r-jU-4qE"/>
+                                <exclude reference="xVV-CL-xvl"/>
+                                <exclude reference="sKc-na-eHk"/>
+                                <exclude reference="B57-9K-ABg"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -799,9 +859,6 @@
                                 <include reference="Z0A-DJ-g66"/>
                                 <include reference="iwk-p2-eyz"/>
                                 <include reference="H8C-t9-ois"/>
-                                <include reference="xVV-CL-xvl"/>
-                                <include reference="sKc-na-eHk"/>
-                                <include reference="B57-9K-ABg"/>
                                 <include reference="Xdt-XS-64f"/>
                                 <include reference="Qsa-ER-BT2"/>
                                 <include reference="Flu-kJ-u0i"/>
@@ -809,6 +866,9 @@
                                 <include reference="TNn-r7-1Rs"/>
                                 <include reference="wP9-qP-hxE"/>
                                 <include reference="g1r-jU-4qE"/>
+                                <include reference="xVV-CL-xvl"/>
+                                <include reference="sKc-na-eHk"/>
+                                <include reference="B57-9K-ABg"/>
                             </mask>
                         </variation>
                     </view>
@@ -869,6 +929,7 @@
                         <viewControllerLayoutGuide type="bottom" id="quv-9C-9yW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7mz-AK-2b9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

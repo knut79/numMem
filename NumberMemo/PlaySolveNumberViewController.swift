@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 import CoreData
+import iAd
+import AVFoundation
 
-class PlaySolveNumberViewController: UIViewController{
+class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
 
     @IBOutlet weak var correctNumbersLabel: UILabel!
     @IBOutlet weak var wrongNumbersLabel: UILabel!
@@ -33,6 +35,46 @@ class PlaySolveNumberViewController: UIViewController{
     
     var staticstoreItems = [Staticstore]()
     let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    
+    var audioPlayer = AVAudioPlayer()
+    var correctSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("correct", ofType: "wav")!)
+    var failedSounds = [NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("wrong1", ofType: "wav")!),NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("wrong2", ofType: "mp3")!)]
+    var gameoverSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("timeup", ofType: "mp3")!)
+    var winningSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("finish", ofType: "mp3")!)
+    
+    var bannerView:ADBannerView?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.canDisplayBannerAds = true
+        bannerView = ADBannerView(frame: CGRectMake(0, UIScreen.mainScreen().bounds.size.height - 44, UIScreen.mainScreen().bounds.size.width, 44))
+        self.view.addSubview(bannerView!)
+        self.bannerView?.delegate = self
+        self.bannerView?.hidden = false
+        
+        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
+        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        
+        correctNumbersLabel.text = ""
+        wrongNumbersLabel.text = ""
+        
+        fetchUserData()
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        //labelForAnimation = UILabel(frame: CGRectMake(0, 0, zeroButton!.bounds.size.width, zeroButton!.bounds.size.height))
+        //labelForAnimation.hidden = false
+        labelForAnimation = UILabel(frame: CGRectMake(0, 0, 60, 40))
+        labelForAnimation.textAlignment = NSTextAlignment.Center
+        labelForAnimation.text = " "
+        labelForAnimation.alpha = 0.0
+        
+        self.view.addSubview(labelForAnimation)
+    }
     
     func fetchUserData() {
         
@@ -72,27 +114,7 @@ class PlaySolveNumberViewController: UIViewController{
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        correctNumbersLabel.text = ""
-        wrongNumbersLabel.text = ""
-        
-        fetchUserData()
 
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-        //labelForAnimation = UILabel(frame: CGRectMake(0, 0, zeroButton!.bounds.size.width, zeroButton!.bounds.size.height))
-        //labelForAnimation.hidden = false
-        labelForAnimation = UILabel(frame: CGRectMake(0, 0, 60, 40))
-        labelForAnimation.textAlignment = NSTextAlignment.Center
-        labelForAnimation.text = " "
-        labelForAnimation.alpha = 0.0
-        
-        self.view.addSubview(labelForAnimation)
-    }
     
     var jumpOutOfCheck = false
     func checkAndSetValue(number:String,senderButton:UIButton) -> Void{
@@ -108,9 +130,11 @@ class PlaySolveNumberViewController: UIViewController{
         labelForAnimation.alpha = 1.0
         labelForAnimation.text = number
         
+        var error:NSError?
         //if last value was right and this value is wrong add a spacing to separate the wrong numbers
         if(checkValue.1)
         {
+            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.correctSound, error: &error)
             UIView.animateWithDuration(0.5, animations: {
                 self.labelForAnimation.center = self.correctNumbersLabel!.center
                 senderButton.backgroundColor = UIColor.greenColor()
@@ -137,6 +161,7 @@ class PlaySolveNumberViewController: UIViewController{
         }
         else
         {
+            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.failedSounds[0], error: &error)
             UIView.animateWithDuration(0.5, animations: {
                 self.labelForAnimation.center = self.wrongNumbersLabel!.center
                 senderButton.backgroundColor = UIColor.redColor()
@@ -171,21 +196,26 @@ class PlaySolveNumberViewController: UIViewController{
         save()
         
         let errorCount = 20
+        var error:NSError?
         if(wrongNumbersLabel.text!.utf16Count >= errorCount)
         {
+            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.gameoverSound, error: nil)
             wrongNumbersLabel.backgroundColor = UIColor.redColor()
             correctNumbersLabel.backgroundColor = UIColor.redColor()
             correctNumbersLabel.text = "More than \(errorCount) wrong digits. Try another number."
-            return jumpOutOfCheck = true
+            //return jumpOutOfCheck = true
         }
         
         if(correctNumbersLabel.text!.utf16Count >= number.utf16Count)
         {
+            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.winningSound, error: nil)
             correctNumbersLabel.backgroundColor = UIColor.greenColor()
             wrongNumbersLabel.backgroundColor = UIColor.greenColor()
             wrongNumbersLabel.text = "Super 👍 \(number.utf16Count) right digits"
-            return jumpOutOfCheck = true
+            //return jumpOutOfCheck = true
         }
+        self.audioPlayer.prepareToPlay()
+        self.audioPlayer.play()
     }
     
     func checkAndSetValue(number:Int,senderButton:UIButton) -> Void{
@@ -254,7 +284,17 @@ class PlaySolveNumberViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
 
+    func bannerViewDidLoadAd(banner: ADBannerView!) {
+        self.bannerView?.hidden = false
+    }
     
+    func bannerViewActionShouldBegin(banner: ADBannerView!, willLeaveApplication willLeave: Bool) -> Bool {
+        return willLeave
+    }
+    
+    func bannerView(banner: ADBannerView!, didFailToReceiveAdWithError error: NSError!) {
+        self.bannerView?.hidden = true
+    }
     
 
 }
