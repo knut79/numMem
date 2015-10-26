@@ -13,7 +13,7 @@ import iAd
 class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
     
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var cards:Array<Card> = Array<Card>()
     var currentCard = 0
     var labelFront: UILabel!
@@ -44,13 +44,6 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         self.view.addSubview(bannerView!)
         self.bannerView?.delegate = self
         self.bannerView?.hidden = false
-        
-        // Store the full frame in a temporary variable
-        var viewFrame = self.view.frame
-        
-        // Adjust it down by 20 points
-        //viewFrame.origin.y += 20
-        
         
         slideInFromRightTransition.delegate = self
         // Customize the animation's properties
@@ -136,8 +129,8 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        var addCardClosure:(Relation) -> () = {
-            var fontText = $0.number +  ($0.marked == 1 ? self.makedString : "")
+        let addCardClosure:(Relation) -> () = {
+            let fontText = $0.number +  ($0.marked == true ? self.makedString : "")
             self.cards.append(Card(front: fontText ,
                 back: $0.subject + "\n" + $0.verb + "\n" + $0.other,
                 marked: $0.marked,
@@ -145,13 +138,13 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         }
         
 
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
+        if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Relation] {
             
             for(var i = minCardIndex; i <= maxCardIndex ; i++)
             {
                 if(onlyMarked)
                 {
-                    if(fetchResults[i].marked == 1)
+                    if(fetchResults[i].marked == true)
                     {
                         addCardClosure(fetchResults[i])
                     }
@@ -163,7 +156,7 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
             }
             if(cards.count == 0)
             {
-                var noMarkedNumbersPrompt = UIAlertController(title: "No marked numbers",
+                let noMarkedNumbersPrompt = UIAlertController(title: "No marked numbers",
                     message: "Showing non marked numbers",
                     preferredStyle: .Alert)
                 
@@ -194,17 +187,20 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
     }
     
     func save() {
-        var error : NSError?
-        if(managedObjectContext!.save(&error) ) {
-            println(error?.localizedDescription)
+        do{
+            try managedObjectContext!.save()
+        } catch {
+            print(error)
         }
     }
     
     func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let count = countElements(list)
-        for i in 0..<(count - 1) {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
-            swap(&list[i], &list[j])
+        let ecount = list.count
+        for i in 0..<(ecount - 1) {
+            let j = Int(arc4random_uniform(UInt32(ecount - i))) + i
+            if j != i {
+                swap(&list[i], &list[j])
+            }
         }
         return list
     }
@@ -333,20 +329,20 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
                 self.cardView.center = CGPointMake(self.cardView.center.x, self.cardView.center.y + 20)
             }, completion: { (value: Bool) in
                 let relationItem = self.cards[self.currentCard].nsManagedObject
-                if(self.cards[self.currentCard].marked == 1)
+                if(self.cards[self.currentCard].marked == true)
                 {
                     self.cards[self.currentCard].front = self.cards[self.currentCard].front.stringByReplacingOccurrencesOfString(self.makedString, withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
                     
-                    self.cards[self.currentCard].marked = 0
+                    self.cards[self.currentCard].marked = false
                     //unmark in db
-                    relationItem.marked = 0
+                    relationItem.marked = false
                 }
                 else
                 {
                     (self.cards[self.currentCard] as Card).front += self.makedString
-                    self.cards[self.currentCard].marked = 1
+                    self.cards[self.currentCard].marked = true
                     //mark i db
-                    relationItem.marked = 1
+                    relationItem.marked = true
                     self.pauseTimer()
                 }
                 self.save()

@@ -20,7 +20,7 @@ class GuessRightViewController: UIViewController{
     @IBOutlet weak var toPickerView: UIPickerView!
     
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var relationItems = [Relation]()
     
     func fetchRelations() {
@@ -29,7 +29,7 @@ class GuessRightViewController: UIViewController{
         let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
+        if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Relation] {
             relationItems = fetchResults
         }
         if(relationItems.count > 0)
@@ -101,7 +101,7 @@ class GuessRightViewController: UIViewController{
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         if (segue.identifier == "showPlayGuessRight") {
-            var svc = segue!.destinationViewController as PlayGuessRightViewController;
+            let svc = segue!.destinationViewController as! PlayGuessRightViewController;
             
             svc.maxCardIndex = toSelectedRow
             svc.minCardIndex = fromSelectedRow

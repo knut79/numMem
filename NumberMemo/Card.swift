@@ -13,10 +13,10 @@ class Card
 {
     var front: String
     let back: String
-    var marked: Boolean
+    var marked: DarwinBoolean
     var nsManagedObject: Relation
     
-    init(front:String, back:String, marked:Boolean, nsManagedObject: Relation){
+    init(front:String, back:String, marked:DarwinBoolean, nsManagedObject: Relation){
         self.front = front
         self.back = back
         self.marked = marked

@@ -34,7 +34,7 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
     var lastNumberCorrect = false
     
     var staticstoreItems = [Staticstore]()
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
     var audioPlayer = AVAudioPlayer()
     var correctSound = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("correct", ofType: "wav")!)
@@ -53,8 +53,14 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
         self.bannerView?.delegate = self
         self.bannerView?.hidden = false
         
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch _ {
+        }
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch _ {
+        }
         
         correctNumbersLabel.text = ""
         wrongNumbersLabel.text = ""
@@ -84,23 +90,16 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
         let sortDescriptor = NSSortDescriptor(key: "wholenumber", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        
-        var error: NSError?
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &error) as? [Staticstore]
+        if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Staticstore]
         {
-            if(error != nil)
-            {
-                println("Error executing request for entity \(error?.description)")
-            }
-            
-            println("length of fetchResults array \(fetchResults.count)")
+            print("length of fetchResults array \(fetchResults.count)")
             if( fetchResults.count > 0 )
             {
                 correctNumbersLabel.text = fetchResults[0].correctnumber
                 wrongNumbersLabel.text = fetchResults[0].wrongnumber
-                if(correctNumbersLabel.text?.utf16Count > 0)
+                if( correctNumbersLabel.text!.utf16.count > 0)
                 {
-                    charNumberInNumber = correctNumbersLabel.text!.utf16Count
+                    charNumberInNumber = correctNumbersLabel.text!.utf16.count
                 }
             }
             staticstoreItems = fetchResults
@@ -108,33 +107,35 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
     }
     
     func save() {
-        var error : NSError?
-        if(managedObjectContext!.save(&error) ) {
-            println(error?.localizedDescription)
+        do{
+            try managedObjectContext!.save()
+        } catch {
+            print(error)
         }
     }
     
 
     
     var jumpOutOfCheck = false
-    func checkAndSetValue(number:String,senderButton:UIButton) -> Void{
+    func checkStringAndSetValue(number:String,senderButton:UIButton) -> Void{
         
         if jumpOutOfCheck{
             return
         }
-        var checkValue = rightNumber(number)
+        let checkValue = rightNumber(number)
 
-
-        
         labelForAnimation.center = senderButton.center
         labelForAnimation.alpha = 1.0
         labelForAnimation.text = number
         
-        var error:NSError?
         //if last value was right and this value is wrong add a spacing to separate the wrong numbers
         if(checkValue.1)
         {
-            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.correctSound, error: &error)
+            do {
+                self.audioPlayer = try AVAudioPlayer(contentsOfURL: self.correctSound)
+            } catch let error1 as NSError {
+                print(error1)
+            }
             UIView.animateWithDuration(0.5, animations: {
                 self.labelForAnimation.center = self.correctNumbersLabel!.center
                 senderButton.backgroundColor = UIColor.greenColor()
@@ -161,7 +162,11 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
         }
         else
         {
-            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.failedSounds[0], error: &error)
+            do {
+                self.audioPlayer = try AVAudioPlayer(contentsOfURL: self.failedSounds[0])
+            } catch let error1 as NSError {
+                print(error1)
+            }
             UIView.animateWithDuration(0.5, animations: {
                 self.labelForAnimation.center = self.wrongNumbersLabel!.center
                 senderButton.backgroundColor = UIColor.redColor()
@@ -189,45 +194,55 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
         }
     }
     
-    func checkEndGame(Void)
+    func checkEndGame(_: Void)
     {
         staticstoreItems[0].correctnumber = self.correctNumbersLabel.text!
         staticstoreItems[0].wrongnumber = self.wrongNumbersLabel.text!
         save()
         
         let errorCount = 20
-        var error:NSError?
-        if(wrongNumbersLabel.text!.utf16Count >= errorCount)
+        if(wrongNumbersLabel.text!.utf16.count >= errorCount)
         {
-            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.gameoverSound, error: nil)
+
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOfURL: self.gameoverSound)
+            } catch let error1 as NSError {
+                print(error1)
+                
+            }
             wrongNumbersLabel.backgroundColor = UIColor.redColor()
             correctNumbersLabel.backgroundColor = UIColor.redColor()
             correctNumbersLabel.text = "More than \(errorCount) wrong digits. Try another number."
             //return jumpOutOfCheck = true
         }
         
-        if(correctNumbersLabel.text!.utf16Count >= number.utf16Count)
+        if(correctNumbersLabel.text!.utf16.count >= number.utf16.count)
         {
-            self.audioPlayer = AVAudioPlayer(contentsOfURL: self.winningSound, error: nil)
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOfURL: self.winningSound)
+            } catch let error1 as NSError {
+                print(error1)
+                
+            }
             correctNumbersLabel.backgroundColor = UIColor.greenColor()
             wrongNumbersLabel.backgroundColor = UIColor.greenColor()
-            wrongNumbersLabel.text = "Super 👍 \(number.utf16Count) right digits"
+            wrongNumbersLabel.text = "Super 👍 \(number.utf16.count) right digits"
             //return jumpOutOfCheck = true
         }
         self.audioPlayer.prepareToPlay()
         self.audioPlayer.play()
     }
     
-    func checkAndSetValue(number:Int,senderButton:UIButton) -> Void{
-        checkAndSetValue(String(number),senderButton: senderButton)
+    func checkIntAndSetValue(number:Int,senderButton:UIButton) -> Void{
+        checkStringAndSetValue(String(number),senderButton: senderButton)
     }
     
     func rightNumber(oneNumber: String) -> (String,Bool){
         
-        let indexStart: String.Index = advance(number.startIndex, charNumberInNumber)
-        let indexEnd: String.Index = advance(number.startIndex, charNumberInNumber+1)
-        var range = Range<String.Index>( start: indexStart, end: indexEnd)
-        var currentChar = number.substringWithRange(range)
+        let indexStart: String.Index = number.startIndex.advancedBy(charNumberInNumber)
+        let indexEnd: String.Index = number.startIndex.advancedBy(charNumberInNumber+1)
+        let range = Range<String.Index>( start: indexStart, end: indexEnd)
+        let currentChar = number.substringWithRange(range)
         
         if(currentChar == oneNumber)
         {
@@ -237,47 +252,47 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
     }
     
     @IBAction func zeroButtonPushed(sender: UIButton) {
-        checkAndSetValue(0,senderButton: sender)
+        checkIntAndSetValue(0,senderButton: sender)
     }
     
     @IBAction func commaButtonPushed(sender: UIButton) {
-        checkAndSetValue(".",senderButton: sender)
+        checkStringAndSetValue(".",senderButton: sender)
     }
     
     @IBAction func oneButtonPushed(sender: UIButton) {
-        checkAndSetValue(1,senderButton: sender)
+        checkIntAndSetValue(1,senderButton: sender)
     }
  
     @IBAction func twoButtonPushed(sender: UIButton) {
-        checkAndSetValue(2,senderButton: sender)
+        checkIntAndSetValue(2,senderButton: sender)
     }
     
     @IBAction func threeButtonPushed(sender: UIButton) {
-        checkAndSetValue(3,senderButton: sender)
+        checkIntAndSetValue(3,senderButton: sender)
     }
     
     @IBAction func fourButtonPushed(sender: UIButton) {
-        checkAndSetValue(4,senderButton: sender)
+        checkIntAndSetValue(4,senderButton: sender)
     }
     
     @IBAction func fiveButtonPushed(sender: UIButton) {
-        checkAndSetValue(5,senderButton: sender)
+        checkIntAndSetValue(5,senderButton: sender)
     }
     
     @IBAction func sixButtonPushed(sender: UIButton) {
-        checkAndSetValue(6,senderButton: sender)
+        checkIntAndSetValue(6,senderButton: sender)
     }
     
     @IBAction func sevenButtonPushed(sender: UIButton) {
-        checkAndSetValue(7,senderButton: sender)
+        checkIntAndSetValue(7,senderButton: sender)
     }
     
     @IBAction func eightButtonPushed(sender: UIButton) {
-        checkAndSetValue(8,senderButton: sender)
+        checkIntAndSetValue(8,senderButton: sender)
     }
     
     @IBAction func nineButtonPushed(sender: UIButton) {
-        checkAndSetValue(9,senderButton: sender)
+        checkIntAndSetValue(9,senderButton: sender)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

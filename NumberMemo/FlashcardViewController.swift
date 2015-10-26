@@ -27,7 +27,7 @@ class FlashcardViewController: UIViewController{
 
     }
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var relationItems = [Relation]()
 
     func fetchRelations() {
@@ -36,7 +36,7 @@ class FlashcardViewController: UIViewController{
         let sortDescriptor = NSSortDescriptor(key: "number", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
+        if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Relation] {
             relationItems = fetchResults
         }
         if(relationItems.count > 0)
@@ -108,7 +108,7 @@ class FlashcardViewController: UIViewController{
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         if (segue.identifier == "ToFlashCardPlay") {
-            var svc = segue!.destinationViewController as PlayFlashCardsViewController;
+            let svc = segue!.destinationViewController as! PlayFlashCardsViewController
             
             svc.maxCardIndex = toSelectedRow
             svc.minCardIndex = fromSelectedRow

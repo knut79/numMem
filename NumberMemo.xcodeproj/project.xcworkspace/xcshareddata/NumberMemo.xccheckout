@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>6CA141A0-A0BD-43DC-85C6-7B9DB1148643</string>
 	<key>IDESourceControlProjectName</key>
-	<string>NumberMemo</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>E75DC81F3DABAAF2AE0BD326CF658C5C781B4722</key>
 		<string>https://github.com/knut79/numMem.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>NumberMemo.xcodeproj</string>
+	<string>NumberMemo.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E75DC81F3DABAAF2AE0BD326CF658C5C781B4722</key>

@@ -13,7 +13,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
 
 
     // Retreive the managedObjectContext from AppDelegate
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     // Create the table view as soon as this class loads
     var relationsTableView = UITableView(frame: CGRectZero, style: .Plain)
     
@@ -25,16 +25,15 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("RelationCell") as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("RelationCell")
         //cell.textLabel?.text = "\(indexPath.row)"
         
         // Get the LogItem for this index
         let relationItem = relationItems[indexPath.row]
         
         // Set the title of the cell to be the title of the logItem
-        var allValuesSat = relationItem.subject != "" && relationItem.verb != ""
-        var noValuesSat = relationItem.subject == "" && relationItem.verb == ""
-        //+ (allValuesSat ? "👍" : "") + (noValuesSat ? "👎" : "") +
+        let allValuesSat = relationItem.subject != "" && relationItem.verb != ""
+       
         var textForCell:String!
         if(allValuesSat)
         {
@@ -44,15 +43,15 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         {
             textForCell = relationItem.number + " : " + (relationItem.subject == "" ? "No subject👎" : "Subject👍") + " " + (relationItem.verb == "" ? "No verb👎" : "Verb👍")
         }
-        cell.textLabel?.text = textForCell
-        return cell
+        cell!.textLabel?.text = textForCell
+        return cell!
     }
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let relationItem = relationItems[indexPath.row]
         
-        var numberRelationPrompt = UIAlertController(title: "Enter",
+        let numberRelationPrompt = UIAlertController(title: "Enter",
             message: "Enter relations for number \(relationItem.number)",
             preferredStyle: .Alert)
         
@@ -88,9 +87,9 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             style: .Default,
             handler: { (action) -> Void in
                 
-                relationItem.subject = subjectRelationTextField!.text
-                relationItem.verb = verbRelationTextField!.text
-                relationItem.other = otherRelationTextField!.text
+                relationItem.subject = subjectRelationTextField!.text!
+                relationItem.verb = verbRelationTextField!.text!
+                relationItem.other = otherRelationTextField!.text!
                 self.save()
                 //let textField = numberTextField
                 /*
@@ -162,7 +161,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         let predicate = NSCompoundPredicate(type: NSCompoundPredicateType.OrPredicateType, subpredicates: [firstPredicate, thPredicate])
         */
         
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
+        if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Relation] {
             relationItems = fetchResults
         }
     }
@@ -173,7 +172,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         
 
         
-        var numberPrompt = UIAlertController(title: "Enter",
+        let numberPrompt = UIAlertController(title: "Enter",
             message: "Enter number with relations",
             preferredStyle: .Alert)
         
@@ -216,9 +215,9 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                 if(numberTextField != nil && (subjectRelationTextField != nil || verbRelationTextField != nil || otherRelationTextField != nil))
                 {
                     
-                    if(self.numberExists(numberTextField!.text))
+                    if(self.numberExists(numberTextField!.text!))
                     {
-                        var existsPrompt = UIAlertController(title: "Value exists",
+                        let existsPrompt = UIAlertController(title: "Value exists",
                             message: "Number \(numberTextField!.text) exists. Values are dismissed",
                             preferredStyle: .Alert)
                         existsPrompt.addAction(UIAlertAction(title: "Ok",
@@ -233,7 +232,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                         //numberTextField!.text
                         //self.saveNewItem(values.0,relationsubject: values.1, relationverb: values.2, otherrelation: values.3)
                     
-                        self.saveNewItem(numberTextField!.text, relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text : "")
+                        self.saveNewItem(numberTextField!.text!, relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text! : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text! : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text! : "")
                     }
                 }
         }))
@@ -261,7 +260,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     
     func populateItems() {
         
-        var testData = [
+        let testData = [
             ("00","Ozzy Ozbourne","Organizing Oxen",""),
             ("01","Man dressed as Oil barrel","Oiled up",""),
             ("02","Otter","Building a otter dam",""),
@@ -488,7 +487,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             ("99","gina G","","flagge")
         ]*/
         
-        var numberPrompt = UIAlertController(title: "Populate data",
+        let numberPrompt = UIAlertController(title: "Populate data",
             message: "Want to populate some test data",
             preferredStyle: .Alert)
 
@@ -518,7 +517,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     func saveNewItem(number: String, relationsubject: String, relationverb: String, otherrelation: String ) {
         // Create the new  log item
         
-        var newRelationItem = Relation.createInManagedObjectContext(self.managedObjectContext!, number: number, verb: relationverb, subject: relationsubject, otherrelation: otherrelation)
+        let newRelationItem = Relation.createInManagedObjectContext(self.managedObjectContext!, number: number, verb: relationverb, subject: relationsubject, otherrelation: otherrelation)
         
         // Update the array containing the table view row data
         self.fetchRelations()
@@ -526,7 +525,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         // Animate in the new row
         // Use Swift's find() function to figure out the index of the newLogItem
         // after it's been added and sorted in our logItems array
-        if let newItemIndex = find(relationItems, newRelationItem) {
+        if let newItemIndex = relationItems.indexOf(newRelationItem) {
             // Create an NSIndexPath from the newItemIndex
             let newRelationItemIndexPath = NSIndexPath(forRow: newItemIndex, inSection: 0)
             // Animate in the insertion of this row
@@ -536,9 +535,10 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     }
     
     func save() {
-        var error : NSError?
-        if(managedObjectContext!.save(&error) ) {
-            println(error?.localizedDescription)
+        do{
+            try managedObjectContext!.save()
+        } catch {
+            print(error)
         }
     }
     

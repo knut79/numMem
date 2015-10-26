@@ -20,7 +20,7 @@ class Staticstore: NSManagedObject {
     
     class func createInManagedObjectContext(moc: NSManagedObjectContext, wholenumber:String, rightnumber: String, wrongnumber: String) -> Staticstore{
         
-        let newitem = NSEntityDescription.insertNewObjectForEntityForName("Staticstore", inManagedObjectContext: moc) as Staticstore
+        let newitem = NSEntityDescription.insertNewObjectForEntityForName("Staticstore", inManagedObjectContext: moc) as! Staticstore
         newitem.correctnumber = rightnumber
         newitem.wrongnumber = wrongnumber
         newitem.wholenumber = wholenumber

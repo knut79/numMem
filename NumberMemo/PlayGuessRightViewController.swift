@@ -15,11 +15,12 @@ import iAd
 class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     var questions:Array<Question> = Array<Question>()
     var allQuestions:Array<Question> = Array<Question>()
     var currentQuestion = 0
     
+    var toggleSoundButton: UIButton!
     var questionLabel: UILabel!
     var infoLabel: UILabel!
     var answerButtons:[UIButton] = []
@@ -57,12 +58,16 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         self.view.addSubview(bannerView!)
         self.bannerView?.delegate = self
         self.bannerView?.hidden = false
+
         
-        // Store the full frame in a temporary variable
-        var viewFrame = self.view.frame
-        
-        AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, error: nil)
-        AVAudioSession.sharedInstance().setActive(true, error: nil)
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        } catch _ {
+        }
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch _ {
+        }
         
         // Adjust it down by 20 points
         //viewFrame.origin.y += 20
@@ -108,7 +113,15 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         infoLabel.numberOfLines = 4
         infoLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: (UIScreen.mainScreen().bounds.size.height * 0.30) + labelTimer.frame.height)
         
+        toggleSoundButton = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width * 0.2, UIScreen.mainScreen().bounds.size.width * 0.2))
+        //toggleSoundButton.backgroundColor = UIColor.blackColor()
+        toggleSoundButton.setTitle("🔇", forState: UIControlState.Normal)
+        toggleSoundButton.addTarget(self, action: "toggleSound", forControlEvents: UIControlEvents.TouchUpInside)
+        toggleSoundButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width - (toggleSoundButton.frame.width / 2) , self.navigationController!.navigationBar.frame.maxY + (toggleSoundButton.frame.height / 2))
+        //toggleSoundButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width / 2, UIScreen.mainScreen().bounds.height / 2)
+
         
+        self.view.addSubview(toggleSoundButton)
         
         fetchUserData()
         
@@ -123,21 +136,37 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         self.setAnswersOnButtons()
         
         startTimer()
+        self.view.bringSubviewToFront(toggleSoundButton)
         
+    }
+    var soundOn = true
+    func toggleSound()
+    {
+        if soundOn
+        {
+            toggleSoundButton.setTitle("🔊", forState: UIControlState.Normal)
+            self.audioPlayer.volume = 0
+        }
+        else
+        {
+            toggleSoundButton.setTitle("🔇", forState: UIControlState.Normal)
+            self.audioPlayer.volume = 1
+        }
+        soundOn = !soundOn
     }
     
     func setInfoLabelText()
     {
-            infoLabel.text = " Best strike: \(staticstoreItems[0].beststrike) \n Average correct time: \(self.questions[self.currentQuestion].nsManagedObject.avg) \n Answered correct: \(self.questions[self.currentQuestion].nsManagedObject.timesanswered) \n Answered wrong: \(self.questions[self.currentQuestion].nsManagedObject.timesfailed)"
+        let bestStrike = staticstoreItems.count > 0 ? staticstoreItems[0].beststrike : 0
+        infoLabel.text = " Best strike: \(bestStrike) \n Average correct time: \(self.questions[self.currentQuestion].nsManagedObject.avg) \n Answered correct: \(self.questions[self.currentQuestion].nsManagedObject.timesanswered) \n Answered wrong: \(self.questions[self.currentQuestion].nsManagedObject.timesfailed)"
     }
     
     func populateAnswerButtons()
     {
-        var rightAnswerIndex = randomNumber(range: 0...4)
         for(var i = 0 ; i < 5 ; i++)
         {
-            var tempButton = UIButton(frame: CGRectMake(0, 0 , UIScreen.mainScreen().bounds.size.width, 40))
-            var y = CGFloat(45 * i) + infoLabel.frame.maxY + 20
+            let tempButton = UIButton(frame: CGRectMake(0, 0 , UIScreen.mainScreen().bounds.size.width, 40))
+            let y = CGFloat(45 * i) + infoLabel.frame.maxY + 20
             
             tempButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, y)
             
@@ -153,7 +182,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     func addQuestion(relation:Relation, allQuestionsCollecton:Bool = false)
     {
-        var questionText = relation.number +  (relation.marked == 1 ? self.makedString : "")
+        let questionText = relation.number +  (relation.marked == true ? self.makedString : "")
         var answers:[String] = []
         if(relation.verb != "")
         {
@@ -191,15 +220,9 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         
-        var error: NSError?
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &error) as? [Staticstore]
+        if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Staticstore]
         {
-            if(error != nil)
-            {
-                println("Error executing request for entity \(error?.description)")
-            }
-            
-            println("length of fetchResults array \(fetchResults.count)")
+            print("length of fetchResults array \(fetchResults.count)")
             staticstoreItems = fetchResults
         }
     }
@@ -233,7 +256,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         }
         */
         
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Relation] {
+        if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Relation] {
             
             for relation in fetchResults
             {
@@ -244,7 +267,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
             {
                 if(onlyMarked)
                 {
-                    if(fetchResults[i].marked == 1)
+                    if(fetchResults[i].marked == true)
                     {
                         addQuestion(fetchResults[i])
                     }
@@ -256,7 +279,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
             }
             if(questions.count == 0)
             {
-                var noMarkedNumbersPrompt = UIAlertController(title: "No marked numbers",
+                let noMarkedNumbersPrompt = UIAlertController(title: "No marked numbers",
                     message: "Showing non marked numbers",
                     preferredStyle: .Alert)
                 
@@ -287,34 +310,37 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     func getRandowAnswer(questionNotToUse:Question) -> (String)
     {
-        var randNumber = randomNumber(range: 0...(allQuestions.count - 1))
+        let randNumber = randomNumber(0...(allQuestions.count - 1))
         var randomQueston = allQuestions[randNumber]
         if(randomQueston.value == questionNotToUse.value)
         {
             randomQueston = allQuestions[(randNumber + 1) % allQuestions.count]
         }
-        var randomAnswer = getOneRightAnswer(randomQueston)
+        let randomAnswer = getOneRightAnswer(randomQueston)
         return randomAnswer
     }
     
     func getOneRightAnswer(question:Question) -> (String)
     {
-        var randNumber = randomNumber(range: 0...(question.answers.count - 1))
+        let randNumber = randomNumber(0...(question.answers.count - 1))
         return question.answers[randNumber]
     }
     
     func save() {
-        var error : NSError?
-        if(managedObjectContext!.save(&error) ) {
-            println(error?.localizedDescription)
+        do{
+            try managedObjectContext!.save()
+        } catch {
+            print(error)
         }
     }
     
     func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let count = countElements(list)
-        for i in 0..<(count - 1) {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
-            swap(&list[i], &list[j])
+        let ecount = list.count
+        for i in 0..<(ecount - 1) {
+            let j = Int(arc4random_uniform(UInt32(ecount - i))) + i
+            if j != i {
+                swap(&list[i], &list[j])
+            }
         }
         return list
     }
@@ -357,7 +383,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                 var rightAnswerButton:UIButton!
                 for button in answerButtons
                 {
-                    if(contains(questions[currentQuestion].answers, button.titleLabel!.text!))
+                    if(questions[currentQuestion].answers.contains((button.titleLabel!.text!)))
                     {
                         rightAnswerButton = button
                     }
@@ -370,8 +396,8 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     func giveAnswer(sender: AnyObject?)
     {
-        var button = sender as UIButton
-        var answerGiven = button.titleLabel?.text
+        let button = sender as! UIButton
+        let answerGiven = button.titleLabel?.text
         var rightAnswer = false
         for answer in questions[currentQuestion].answers
         {
@@ -395,11 +421,16 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         UIView.animateWithDuration(0.5, delay: 0.0,
             options: UIViewAnimationOptions.CurveLinear,
             animations: {
-                var error:NSError?
                 if(rightAnswer)
                 {
                     
-                    self.audioPlayer = AVAudioPlayer(contentsOfURL: self.correctSound, error: &error)
+                    do {
+                        self.audioPlayer = try AVAudioPlayer(contentsOfURL: self.correctSound)
+                    } catch let error1 as NSError {
+                        print(error1)
+                    } catch {
+                        fatalError()
+                    }
 
                     self.currentCorrectAnswerStrike++
                     if(self.currentCorrectAnswerStrike > self.staticstoreItems[0].beststrike)
@@ -411,7 +442,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                     }
                     button.backgroundColor = UIColor.greenColor()
                     self.questionLabel.text = "😃"
-                    var newAverage = self.calculateNewAverage()
+                    let newAverage = self.calculateNewAverage()
                     
                     self.questions[self.currentQuestion].nsManagedObject.avg = newAverage
                         //+ timer) / (questions[currentQuestion].nsManagedObject.timesanswered + 1)
@@ -423,17 +454,33 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                 else
                 {
                     self.currentCorrectAnswerStrike = 0
-                    self.audioPlayer = AVAudioPlayer(contentsOfURL: self.failedSounds[self.randomNumber(range: 0...1)], error: &error)
+                    do {
+                        self.audioPlayer = try AVAudioPlayer(contentsOfURL: self.failedSounds[self.randomNumber(0...1)])
+                    } catch let error1 as NSError {
+                        print(error1)
+                    } catch {
+                        fatalError()
+                    }
                     self.questions[self.currentQuestion].nsManagedObject.timesfailed = self.questions[self.currentQuestion].nsManagedObject.timesfailed + 1
                     button.backgroundColor = UIColor.redColor()
                     self.questionLabel.text = "😩"
                 }
-                if(self.timerCount >= self.timeupTime)
+
+                if self.soundOn
                 {
-                    self.audioPlayer = AVAudioPlayer(contentsOfURL: self.timeupSound, error: &error)
+                    if(self.timerCount >= self.timeupTime)
+                    {
+                        do {
+                            self.audioPlayer = try AVAudioPlayer(contentsOfURL: self.timeupSound)
+                        } catch let error1 as NSError {
+                            print(error1)
+                        } catch {
+                            fatalError()
+                        }
+                    }
+                    self.audioPlayer.prepareToPlay()
+                    self.audioPlayer.play()
                 }
-                self.audioPlayer.prepareToPlay()
-                self.audioPlayer.play()
                 self.timerCount = 0
 
             },
@@ -470,7 +517,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     func setAnswersOnButtons()
     {
-        var rightAnswerIndex = randomNumber(range: 0...4)
+        let rightAnswerIndex = randomNumber(0...4)
         var i = 0
         for answerButton in answerButtons
         {
@@ -478,7 +525,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
             var answerText:String!
             var uniqueAnswer = true
             var tries = 0
-            do
+            repeat
             {
                 tries++
                 uniqueAnswer = true
@@ -493,7 +540,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                     answerText = getRandowAnswer(questions[currentQuestion])
                     for answer in answerButtons
                     {
-                        if(answerText == answer.titleLabel?.text || contains( questions[currentQuestion].answers, answerText))
+                        if(answerText == answer.titleLabel?.text || questions[currentQuestion].answers.contains(answerText))
                         {
                             uniqueAnswer = false
                         }

@@ -39,104 +39,37 @@ class SolveNumberViewController: UIViewController {
         ("Reciprocal Fibonacci constant","3.35988566624317755317201130291892717")
         
     ]
+    let slideInFromRightTransition = CATransition()
+    let slideInFromLeftTransition = CATransition()
     
     var staticstoreItems = [Staticstore]()
-    let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+    let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     
-    func fetchUserData() {
-        
-        let fetchRequest = NSFetchRequest(entityName: "Staticstore")
-        
-
-        let sortDescriptor = NSSortDescriptor(key: "wholenumber", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-
-        
-        var error: NSError?
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: &error) as? [Staticstore]
-        {
-            if(error != nil)
-            {
-                println("Error executing request for entity \(error?.description)")
-            }
-            
-            println("length of fetchResults array \(fetchResults.count)")
-            if( fetchResults.count > 0 )
-            {
-                numberString = fetchResults[0].wholenumber
-                setTextForNumberLabel(numberString)
-                numDigitsLabel.text = "\(numberString.utf16Count) digits"
-            }
-             staticstoreItems = fetchResults
-        }
-    }
-    
-    func save() {
-        var error : NSError?
-        if(managedObjectContext!.save(&error) ) {
-            println(error?.localizedDescription)
-        }
-    }
-    
-    func setTextForNumberLabel(text:String)
-    {
-        numberLabel.loadHTMLString("<html><div style=\"word-wrap: break-word;\">" + text + "</div></html>", baseURL: nil)
-    }
-    
-    func setTextWithHighlightForNumberLabel(number:String,startindex:String.Index, endindex:String.Index)
-    {
-        var prefixBold = "<span style=\"background-color: #ffff42\">"
-        var suffixBold = "</span>"
-        //let indexStart: String.Index = advance(number.startIndex, startindex)
-        //let indexEnd: String.Index = advance(number.startIndex, endindex)
-        var range = Range<String.Index>( start: startindex, end: endindex)
-        
-        var numbersBeforePrefix = number.substringToIndex(startindex)
-        var numbersToHighlight = prefixBold + number.substringWithRange(range) + suffixBold
-        var numbersAfterSuffix = number.substringFromIndex(endindex)
-        
-        numberLabel.loadHTMLString("<html><div style=\"word-wrap: break-word;\">" + numbersBeforePrefix + numbersToHighlight + numbersAfterSuffix + "</div></html>", baseURL: nil)
-    }
-    
-    @IBAction func generateNumberButtonPushed(sender: UIButton) {
-        
-        numberString = ""
-        var numDigits = 100
-        for(var i = 0 ; i < 100 ; i++)
-        {
-            var num:Int = randomInt(0,max: 9)
-            var str:String = String(num)
-            numberString += str
-        }
-        
-        setTextForNumberLabel(numberString)
-        
-        startButton.setTitle("Start", forState: .Normal)
-        startButton.enabled = true
-        startButton.alpha = 1.0
-        numDigitsLabel.text = "\(numDigits) digits"
-
-        staticstoreItems[0].wholenumber = numberString
-        staticstoreItems[0].correctnumber = ""
-        staticstoreItems[0].wrongnumber = ""
-        save()
-    }
-    
-    @IBAction func startButtonPushed(sender: UIButton) {
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        slideInFromRightTransition.delegate = self
+        // Customize the animation's properties
+        slideInFromRightTransition.type = kCATransitionPush
+        slideInFromRightTransition.subtype = kCATransitionFromRight
+        slideInFromRightTransition.duration = 0.25
+        slideInFromRightTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        slideInFromRightTransition.fillMode = kCAFillModeRemoved
+        
+        slideInFromLeftTransition.delegate = self
+        // Customize the animation's properties
+        slideInFromLeftTransition.type = kCATransitionPush
+        slideInFromLeftTransition.subtype = kCATransitionFromLeft
+        slideInFromLeftTransition.duration = 0.25
+        slideInFromLeftTransition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        slideInFromLeftTransition.fillMode = kCAFillModeRemoved
+        
         // Do view setup here.
         startButton.setTitle("Set a number !", forState: .Normal)
         startButton.enabled = false
-    }
-    
-
-
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        
         fetchUserData()
         if(staticstoreItems.count == 0)
         {
@@ -146,7 +79,7 @@ class SolveNumberViewController: UIViewController {
         numberString = staticstoreItems[0].wholenumber
         setTextForNumberLabel(numberString)
         
-        if(numberString.utf16Count > 0)
+        if(numberString.utf16.count > 0)
         {
             startButton.setTitle("Continue with last number", forState: .Normal)
             startButton.enabled = true
@@ -159,7 +92,7 @@ class SolveNumberViewController: UIViewController {
         overlayView = UIView(frame: CGRectMake(0,0, UIScreen.mainScreen().bounds.size.width , UIScreen.mainScreen().bounds.size.height/3))
         overlayView.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/3)
         overlayView.backgroundColor = UIColor.lightGrayColor()
-        
+
         
         let upSwipe = UISwipeGestureRecognizer(target: self, action: "increaseNumberOfNumbers:")
         upSwipe.direction = UISwipeGestureRecognizerDirection.Up
@@ -180,9 +113,6 @@ class SolveNumberViewController: UIViewController {
         overlayView.addSubview(numberHighlightLabel)
         numberHighlightLabel.center = CGPointMake(overlayView.bounds.size.width/2, overlayView.bounds.size.height/2)
         
-       
-        
-        overlayView.alpha = 0.0
         
         self.view.addSubview(overlayView)
         
@@ -192,8 +122,93 @@ class SolveNumberViewController: UIViewController {
         tapGesture.numberOfTapsRequired = 1
         numberWebViewOverlay.userInteractionEnabled = true
         numberWebViewOverlay.addGestureRecognizer(tapGesture)
+        
+        self.overlayView.frame.size.height = self.numberWebViewOverlay.frame.height
+        self.overlayView.frame.size.width = self.numberWebViewOverlay.frame.size.width
+        self.overlayView.center = self.parentNumverWebView.center
+        self.overlayView.alpha = 0.0
+        
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        view.bringSubviewToFront(overlayView)
+    }
+    
+    func fetchUserData() {
+        let fetchRequest = NSFetchRequest(entityName: "Staticstore")
+        let sortDescriptor = NSSortDescriptor(key: "wholenumber", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+        if let fetchResults = (try?managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Staticstore]
+        {
+            
+            print("length of fetchResults array \(fetchResults.count)")
+            if( fetchResults.count > 0 )
+            {
+                numberString = fetchResults[0].wholenumber
+                setTextForNumberLabel(numberString)
+                numDigitsLabel.text = "\(numberString.utf16.count) digits"
+            }
+             staticstoreItems = fetchResults
+        }
+    }
+    
+    func save() {
+        do{
+            try managedObjectContext!.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func setTextForNumberLabel(text:String)
+    {
+        numberLabel.loadHTMLString("<html><div style=\"word-wrap: break-word;\">" + text + "</div></html>", baseURL: nil)
+    }
+    
+    func setTextWithHighlightForNumberLabel(number:String,startindex:String.Index, endindex:String.Index)
+    {
+        let prefixBold = "<span style=\"background-color: #ffff42\">"
+        let suffixBold = "</span>"
+        //let indexStart: String.Index = advance(number.startIndex, startindex)
+        //let indexEnd: String.Index = advance(number.startIndex, endindex)
+        let range = Range<String.Index>( start: startindex, end: endindex)
+        
+        let numbersBeforePrefix = number.substringToIndex(startindex)
+        let numbersToHighlight = prefixBold + number.substringWithRange(range) + suffixBold
+        let numbersAfterSuffix = number.substringFromIndex(endindex)
+        
+        numberLabel.loadHTMLString("<html><div style=\"word-wrap: break-word;\">" + numbersBeforePrefix + numbersToHighlight + numbersAfterSuffix + "</div></html>", baseURL: nil)
+    }
+    
+    @IBAction func generateNumberButtonPushed(sender: UIButton) {
+        
+        numberString = ""
+        let numDigits = 100
+        for(var i = 0 ; i < 100 ; i++)
+        {
+            let num:Int = randomInt(0,max: 9)
+            let str:String = String(num)
+            numberString += str
+        }
+        
+        setTextForNumberLabel(numberString)
+        
+        startButton.setTitle("Start", forState: .Normal)
+        startButton.enabled = true
+        startButton.alpha = 1.0
+        numDigitsLabel.text = "\(numDigits) digits"
+
+        staticstoreItems[0].wholenumber = numberString
+        staticstoreItems[0].correctnumber = ""
+        staticstoreItems[0].wrongnumber = ""
+        save()
+    }
+    
+    @IBAction func startButtonPushed(sender: UIButton) {
+    }
+ 
     var firstTimeForHighlight = true
     func tapOnNumberPanel(sender: AnyObject) {
         
@@ -235,11 +250,15 @@ class SolveNumberViewController: UIViewController {
     
     @IBAction func nextNumbers(sender: AnyObject) {
         currentHighlightNumberIndex += numberOfHiglightedNumbers
+        
+
+        numberHighlightLabel.layer.addAnimation(slideInFromRightTransition, forKey: "slideInFromRightTransition")
         setHighlightNumberLabel()
     }
     
     @IBAction func lastNumbers(sender: AnyObject) {
         currentHighlightNumberIndex -= numberOfHiglightedNumbers
+        numberHighlightLabel.layer.addAnimation(slideInFromLeftTransition, forKey: "slideInFromLeftTransition")
         setHighlightNumberLabel()
     }
     
@@ -249,10 +268,7 @@ class SolveNumberViewController: UIViewController {
         {
             numberOfHiglightedNumbers = 10
         }
-        
-        
 
-        
         setHighlightNumberLabel()
     }
     
@@ -267,29 +283,36 @@ class SolveNumberViewController: UIViewController {
     
     func setHighlightNumberLabel()
     {
-        var numbersValue = numberString
+        let numbersValue = numberString
         
-        if(numberOfHiglightedNumbers > numbersValue.utf16Count)
+        if(numberOfHiglightedNumbers > numbersValue.utf16.count)
         {
-            println("numberOfHiglightedNumbers \(numberOfHiglightedNumbers)")
-            println("numbersValue.utf16Count \(numbersValue.utf16Count)")
-            numberOfHiglightedNumbers = numbersValue.utf16Count
+            print("numberOfHiglightedNumbers \(numberOfHiglightedNumbers)")
+            print("numbersValue.utf16Count \(numbersValue.utf16.count)")
+            numberOfHiglightedNumbers = numbersValue.utf16.count
         }
-        if((currentHighlightNumberIndex + numberOfHiglightedNumbers) >= numbersValue.utf16Count)
+        var end = false
+        if((currentHighlightNumberIndex + numberOfHiglightedNumbers) >= numbersValue.utf16.count)
         {
-            currentHighlightNumberIndex = numbersValue.utf16Count  - numberOfHiglightedNumbers
+            //currentHighlightNumberIndex = count(numbersValue.utf16)  - numberOfHiglightedNumbers
+            end = true
         }
         if(currentHighlightNumberIndex < 0)
         {
             currentHighlightNumberIndex = 0
         }
         
-        let indexStart: String.Index = advance(numbersValue.startIndex, currentHighlightNumberIndex)
-        let indexEnd: String.Index = advance(numbersValue.startIndex, currentHighlightNumberIndex + numberOfHiglightedNumbers)
-        var range = Range<String.Index>( start: indexStart, end: indexEnd)
-        var currentNumbersToHighlight = numbersValue.substringWithRange(range)
+        let indexStart: String.Index = numbersValue.startIndex.advancedBy(currentHighlightNumberIndex)
+        let indexEnd: String.Index = end ? numbersValue.startIndex.advancedBy(numbersValue.utf16.count) : numbersValue.startIndex.advancedBy(currentHighlightNumberIndex + numberOfHiglightedNumbers)
+        let range = Range<String.Index>( start: indexStart, end: indexEnd)
+        let currentNumbersToHighlight = numbersValue.substringWithRange(range)
         
+
         numberHighlightLabel.text = currentNumbersToHighlight
+
+
+        
+        
         //highlight in webview
         setTextWithHighlightForNumberLabel(numberString, startindex:indexStart, endindex:indexEnd)
         
@@ -313,15 +336,14 @@ class SolveNumberViewController: UIViewController {
         didSelectRow row: Int,
         inComponent component: Int)
     {
-        var val = staticIrregularNumbers[row].1
         startButton.setTitle("Start", forState: .Normal)
         numberString = staticIrregularNumbers[row].1
-        numDigitsLabel.text = "\(numberString.utf16Count - 1) digits"
+        numDigitsLabel.text = "\(numberString.utf16.count - 1) digits"
         
        
         if(staticstoreItems.count == 0)
         {
-            var newUserDataItem = Staticstore.createInManagedObjectContext(self.managedObjectContext!, wholenumber: numberString, rightnumber: "" , wrongnumber: "")
+            Staticstore.createInManagedObjectContext(self.managedObjectContext!, wholenumber: numberString, rightnumber: "" , wrongnumber: "")
         }
         else
         {
@@ -333,7 +355,7 @@ class SolveNumberViewController: UIViewController {
         
         save()
         
-        if(numberString.utf16Count > 0)
+        if(numberString.utf16.count > 0)
         {
             startButton.enabled = true
         }
@@ -353,7 +375,7 @@ class SolveNumberViewController: UIViewController {
     
     override func prepareForSegue(segue: (UIStoryboardSegue!), sender: AnyObject!) {
         if (segue.identifier == "ToFlashCardPlay") {
-            var svc = segue!.destinationViewController as PlaySolveNumberViewController;
+            let svc = segue!.destinationViewController as! PlaySolveNumberViewController;
             
             svc.number = numberString
         }

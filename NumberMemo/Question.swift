@@ -12,10 +12,10 @@ class Question
 {
     var value: String
     var answers: [String]
-    var marked: Boolean
+    var marked: DarwinBoolean
     var nsManagedObject: Relation
     
-    init(question:String, answers:[String], marked:Boolean, nsManagedObject: Relation){
+    init(question:String, answers:[String], marked:DarwinBoolean, nsManagedObject: Relation){
         self.value = question
         self.answers = answers
         self.marked = marked
