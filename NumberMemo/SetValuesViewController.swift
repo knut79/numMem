@@ -37,11 +37,16 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         var textForCell:String!
         if(allValuesSat)
         {
-            textForCell = relationItem.number + " : " + "🌞"
+            textForCell = relationItem.number + " : " + "😀"
         }
         else
         {
-            textForCell = relationItem.number + " : " + (relationItem.subject == "" ? "No subject👎" : "Subject👍") + " " + (relationItem.verb == "" ? "No verb👎" : "Verb👍")
+            let subjectSat = relationItem.subject != ""
+            let verbSat = relationItem.verb != ""
+            let noValuesSat = !subjectSat && !verbSat
+            let text = noValuesSat ? "No verb or subject 😟" :  (subjectSat ? "Subject😊" : "No subject😕") + " " + (verbSat ? "Verb😊" : "No verb😕")
+
+            textForCell = relationItem.number + " : " + text
         }
         cell!.textLabel?.text = textForCell
         return cell!
@@ -169,9 +174,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
     let addItemAlertViewTag = 0
     let addItemTextAlertViewTag = 1
     func addNewItem() {
-        
 
-        
         let numberPrompt = UIAlertController(title: "Enter",
             message: "Enter number with relations",
             preferredStyle: .Alert)
@@ -214,11 +217,24 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                 //let textField = numberTextField
                 if(numberTextField != nil && (subjectRelationTextField != nil || verbRelationTextField != nil || otherRelationTextField != nil))
                 {
-                    
-                    if(self.numberExists(numberTextField!.text!))
+                    let numberAsInt = Int(numberTextField!.text!)
+  
+                    if( numberAsInt == nil )
+                    {
+                        let existsPrompt = UIAlertController(title: "Not valid number",
+                            message: "Value \(numberTextField!.text!) must be of type integer",
+                            preferredStyle: .Alert)
+                        existsPrompt.addAction(UIAlertAction(title: "Ok",
+                            style: .Default,
+                            handler: nil))
+                        self.presentViewController(existsPrompt,
+                            animated: true,
+                            completion: nil)
+                    }
+                    else if(self.numberExists(String(numberAsInt)))
                     {
                         let existsPrompt = UIAlertController(title: "Value exists",
-                            message: "Number \(numberTextField!.text) exists. Values are dismissed",
+                            message: "Number \(String(numberAsInt)) exists. Values are dismissed",
                             preferredStyle: .Alert)
                         existsPrompt.addAction(UIAlertAction(title: "Ok",
                             style: .Default,
@@ -232,7 +248,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                         //numberTextField!.text
                         //self.saveNewItem(values.0,relationsubject: values.1, relationverb: values.2, otherrelation: values.3)
                     
-                        self.saveNewItem(numberTextField!.text!, relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text! : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text! : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text! : "")
+                        self.saveNewItem(String(numberAsInt), relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text! : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text! : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text! : "")
                     }
                 }
         }))
@@ -244,6 +260,19 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             completion: nil)
         
         relationsTableView.reloadData()
+    }
+    
+    func infoAction()
+    {
+        let existsPrompt = UIAlertController(title: "Info",
+            message: "Set relational values to numbers. As numbers are abstract in nature, visualizing them through objects and activities will make them easier to remember. Tip: sett values according to a digits relation to a letter. 0 = O , 1 = I, 2 = T, 3 = E, 4 = R, 5 = S, 6 = c, 7 = l, 8 = a , 9 = g.  Eg. 68 = camilla 32 = Eat. 6832 = camilla is eating",
+            preferredStyle: .Alert)
+        existsPrompt.addAction(UIAlertAction(title: "Ok",
+            style: .Default,
+            handler: nil))
+        self.presentViewController(existsPrompt,
+            animated: true,
+            completion: nil)
     }
     
     func numberExists(number: String) -> Bool
@@ -262,27 +291,27 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         
         let testData = [
             ("00","Ozzy Ozbourne","Organizing Oxen",""),
-            ("01","Man dressed as Oil barrel","Oiled up",""),
+            ("01","Man dressed as Oil barrel","",""),
             ("02","Otter","Building a otter dam",""),
-            ("03","jOEy (from friends)","Obay something",""),
+            ("03","jOEy (from friends)","Obay a god",""),
             ("04","ORangutan","play an ORgan",""),
             ("05","OSama bin laben","Looking at an OScilloscope",""),
-            ("06","augustus OCtavian / OCtopus ","Using OCulus rift",""),
+            ("06","OCtopus ","Using OCulus rift",""),
             ("07","OLivia","Picking OLives",""),
             ("08","bOA snake","BOard a ship",""),
-            ("09","OGer","jOGging/eating yOuGhurt",""),
-            ("10","diego maradonna( number 10)","using ion cannon",""),
+            ("09","","jOGging/eating yOuGhurt",""),
+            ("10","diego maradonna(number 10)","using ion cannon",""),
             
             ("11","vInnIe jones","playing wii",""),
-            ("12","IT(the clown)/a it-girl","to eat",""),
+            ("12","IT(the clown)","to eat",""),
             ("13","","using Internet Explorer",""),
             ("14","IRonman","casting IRon",""),
-            ("15","ISla fisher","standing on a small ISland",""),
-            ("16","IKer casillas","standing on a iceflake","Icecreme"),
-            ("17","ILiza shlesinger","pushing illegal drugs",""),
+            ("15","","standing on a small ISland",""),
+            ("16","","standing on a iceflake","Icecreme"),
+            ("17","","pushing illegal drugs",""),
             ("18","IAn thorp","play the pIAno",""),
-            ("19","IGlesias","stay in an IGloo",""),
-            ("20","Tommy/Tori","wearing a TOga",""),
+            ("19","","stay in an IGloo",""),
+            ("20","Tommy","wearing a TOga",""),
             
             ("21","TIger","TIpsing",""),
             ("22","","playing TableTennis","audi TT"),
@@ -292,7 +321,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             ("26","a guy from TChad/Tchad","playing in a desert",""),
             ("27","","",""),
             ("28","TArzan/TArantino","TAgging a cow","TAnks"),
-            ("29","TeGan","",""),
+            ("29","TG","",""),
             ("30","dEmOn","dEmOnstrate",""),
             
             ("31","EInstein","",""),
@@ -300,78 +329,78 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             ("33","","pEEling a chicken ",""),
             ("34","Eric","eradicate a wasp nest",""),
             ("35","emilio EStefan","taking an escalator",""),
-            ("36","ekorn","yelling out an echo",""),
-            ("37","elle macpherson","getting an electric shock",""),
+            ("36","","yelling out an echo",""),
+            ("37","ellen","getting an electric shock",""),
             ("38","nEAndertal","",""),
             ("39","EGor","throw an egg",""),
             ("40","RObot","row a boat",""),
             
-            ("41","rianna-------------------","rideing a horse",""),
+            ("41","rianna","rideing a horse",""),
             ("42","rytter","ruteknuser","ert"),
-            ("43","rekdal / rev","rengjøre / re en seng",""),
+            ("43","","",""),
             ("44","radioresepsjonen","røre i grøt",""),
-            ("45","russ","rugby","russebuss"),
-            ("46","røkke","røyke","rc cola"),
-            ("47","rebecca lin","","rullator"),
-            ("48","rakel nordtønne","rake",""),
-            ("49","","rugby / ruge på egg",""),
-            ("50","sofia","sole seg","sopelim"),
+            ("45","","rugby",""),
+            ("46","","","rc cola"),
+            ("47","rebecca","",""),
+            ("48","rambo","",""),
+            ("49","","rugby",""),
+            ("50","sofia","",""),
             
-            ("51","silvio berlusconi / sild","sikle / sint","sirup"),
-            ("52","steinar / stacy","stirre / stylter",""),
-            ("53","seal (sangeren) / sel","sepe",""),
-            ("54","shrek","surfe",""),
-            ("55","susanne wegeland/steven seagal/sharon Stone","sakse",""),
-            ("56","","skyte","skiløper"),
-            ("57","slave","slikke / slim",""),
-            ("58","savanna / sau","sage","samedrakt"),
-            ("59","sugge(hu i 2 and a half)","sugerør","subaru"),
-            ("60","kortney kane","koste","cowboy"),
+            ("51","silvio berlusconi","","sirup"),
+            ("52","stacy","",""),
+            ("53","seal","",""),
+            ("54","shrek","surf",""),
+            ("55","steven seagal/sharon stone","",""),
+            ("56","","",""),
+            ("57","","",""),
+            ("58","","",""),
+            ("59","","",""),
+            ("60","kortney","","cowboy"),
             
-            ("61","kirsebom","kite","kiropraktor"),
-            ("62","katy perry","kutte opp koteletter",""),
+            ("61","","kite","kiropraktor"),
+            ("62","katy perry","",""),
             ("63","keri","ketchup",""),
-            ("64","kristus / krabbe","krans",""),
-            ("65","kiss /kirsten","male seg som kiss",""),
-            ("66","cindy crawford","","cyclecomponents"),
-            ("67","claudia shiffer","klatre/klore","klistre "),
-            ("68","carmen / karen","kaste kake",""),
-            ("69","carl gustav","sægge","sega"),
-            ("70","lolita","lollipop","lotus"),
+            ("64","","",""),
+            ("65","kiss","male seg som kiss",""),
+            ("66","cindy crawford","",""),
+            ("67","claudia shiffer",""," "),
+            ("68","karen","",""),
+            ("69","","","sega"),
+            ("70","loren","","lotus"),
             
-            ("71","linda / line","gå på line",""),
-            ("72","luther king","lytte(m stetoskop)",""),
-            ("73","Leopard /lexus l","lese","lexus"),
-            ("74","(shakespear)","ta en lur/ plåse i lur","lyriker"),
-            ("75","løshund lydia S","låse seg fast","kebab"),
-            ("76","else koss","lukeparkere",""),
-            ("77","louise lane","lulle seg til en ball",""),
-            ("78","larsåsen","lassokasting","latex"),
-            ("79","lady gaga / elg","",""),
-            ("80","forman mao","","aorta"),
+            ("71","linda","",""),
+            ("72","luther king","",""),
+            ("73","Leopard","","lexus car"),
+            ("74","shakespear","",""),
+            ("75","","",""),
+            ("76","elisa","",""),
+            ("77","louise lane","",""),
+            ("78","lamar","","latex"),
+            ("79","Lady Gaga","",""),
+            ("80","mao","",""),
             
             
             ("81","aileen","","aircondition"),
-            ("82","atle antonsen","","atombombe"),
+            ("82","","","atombomb"),
             ("83","ape","amme",""),
-            ("84","argentiner/ b franco","","arkitektsbord"),
-            ("85","aslak sira myre","asfaltere",""),
-            ("86","aksel hennie","ake","akrobat"),
-            ("87","alicia keys / aleska","","almanak"),
-            ("88","asia akira","veive med pekefinger ahahah",""),
-            ("89","agulera/aggie","","agurk"),
-            ("90","gary oldman","","golf/golfspiller"),
+            ("84","","",""),
+            ("85","","",""),
+            ("86","","",""),
+            ("87","alicia keys","",""),
+            ("88","","",""),
+            ("89","","",""),
+            ("90","gary oldman","play GOlf","golf"),
             
             
-            ("91","giselle / giraf","",""),
+            ("91","giraf","",""),
             ("92","gina turner","","gin and tonic"),
-            ("93","geri halleway/ geir","","gepard/ gebiss"),
-            ("94","grichen / gris","grille",""),
-            ("95","guenn stefani/gås","","gåsedun"),
-            ("96","","","gjøkur / geek"),
-            ("97","glenn / gerd liv valla","gløde","glavarull"),
-            ("98","gamsten/gargamel","","gave"),
-            ("99","gina G","","flagge")
+            ("93","geri halleway","","gepard"),
+            ("94","","",""),
+            ("95","guenn stefani","",""),
+            ("96","","","geek"),
+            ("97","","",""),
+            ("98","","",""),
+            ("99","","","")
         ]
         /*var testData = [
             ("00","Ozzy Ozbourne","",""),
@@ -487,11 +516,11 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
             ("99","gina G","","flagge")
         ]*/
         
-        let numberPrompt = UIAlertController(title: "Populate data",
-            message: "Want to populate some test data",
+        let numberPrompt = UIAlertController(title: "Set relations",
+            message: "Some example data is given. Set your own values",
             preferredStyle: .Alert)
 
-        numberPrompt.addAction(UIAlertAction(title: "YES",
+        numberPrompt.addAction(UIAlertAction(title: "Ok",
             style: .Default,
             handler: { (action) -> Void in
                 for values in testData
@@ -501,12 +530,13 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                 }
 
         }))
-        
+        /*
         numberPrompt.addAction(UIAlertAction(title: "NO",
             style: .Default,
             handler: { (action) -> Void in
                 return
         }))
+        */
         
         self.presentViewController(numberPrompt,
             animated: true,
@@ -587,11 +617,18 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         viewFrame.origin.y += ( self.navigationController!.navigationBar.frame.size.height + UIApplication.sharedApplication().statusBarFrame.size.height )
         
         // Add in the "+" button at the bottom
-        let addButton = UIButton(frame: CGRectMake(0, UIScreen.mainScreen().bounds.size.height - 44, UIScreen.mainScreen().bounds.size.width, 44))
+        let margin:CGFloat = 2
+        let addButton = UIButton(frame: CGRectMake(margin, UIScreen.mainScreen().bounds.size.height - 44, UIScreen.mainScreen().bounds.size.width * 0.8, 44))
         addButton.setTitle("+", forState: .Normal)
         addButton.backgroundColor = UIColor(red: 0.5, green: 0.9, blue: 0.5, alpha: 1.0)
         addButton.addTarget(self, action: "addNewItem", forControlEvents: .TouchUpInside)
         self.view.addSubview(addButton)
+        
+        let infoButton = UIButton(frame: CGRectMake(addButton.frame.maxX + margin , UIScreen.mainScreen().bounds.size.height - 44, (UIScreen.mainScreen().bounds.size.width * 0.2) - (margin * 3), 44))
+        infoButton.setTitle("ℹ", forState: .Normal)
+        infoButton.backgroundColor = UIColor(red: 0.5, green: 0.9, blue: 0.5, alpha: 1.0)
+        infoButton.addTarget(self, action: "infoAction", forControlEvents: .TouchUpInside)
+        self.view.addSubview(infoButton)
         
         // Reduce the total height by 20 points for the status bar, and 44 points for the bottom button
         viewFrame.size.height -= (self.navigationController!.navigationBar.frame.size.height +

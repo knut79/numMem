@@ -240,6 +240,10 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
     func rightNumber(oneNumber: String) -> (String,Bool){
         
         let indexStart: String.Index = number.startIndex.advancedBy(charNumberInNumber)
+        if number.characters.count < charNumberInNumber+1
+        {
+            return (oneNumber,false)
+        }
         let indexEnd: String.Index = number.startIndex.advancedBy(charNumberInNumber+1)
         let range = Range<String.Index>( start: indexStart, end: indexEnd)
         let currentChar = number.substringWithRange(range)
