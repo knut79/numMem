@@ -43,6 +43,8 @@ class GuessRightViewController: UIViewController{
         super.viewDidLoad()
         fetchRelations()
         
+
+        
         if(relationItems.count == 0)
         {
             startButton.alpha = 0.0

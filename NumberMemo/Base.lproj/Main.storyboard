@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Main Menu View Controller-->
@@ -168,26 +167,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nna-cF-ALU">
-                                <rect key="frame" x="260" y="373" width="80" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="151" y="474" width="80" height="30"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="26" y="730" width="348" height="30"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
-                                    <rect key="frame" x="360" y="379" width="80" height="30"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="mYT-Xk-Uki" kind="show" identifier="ToFlashCardPlay" id="LeB-0A-roy"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3X-TD-fbx">
                                 <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                 <animations/>
@@ -198,7 +177,7 @@
                                     <rect key="frame" x="16" y="165" width="42" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="142" width="85" height="21"/>
+                                    <rect key="frame" x="16" y="99" width="85" height="21"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Wo-6v-TmB">
@@ -211,7 +190,7 @@
                                     <rect key="frame" x="16" y="319" width="42" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="283" width="85" height="21"/>
+                                    <rect key="frame" x="16" y="243" width="85" height="21"/>
                                 </variation>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SfC-ci-bec">
@@ -221,7 +200,7 @@
                                     <rect key="frame" x="109" y="258" width="182" height="162"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="109" y="213" width="182" height="162"/>
+                                    <rect key="frame" x="109" y="173" width="182" height="162"/>
                                 </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="3Sq-NX-q1n" id="AZJ-DG-pW2"/>
@@ -235,7 +214,7 @@
                                     <rect key="frame" x="109" y="95" width="198" height="162"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="109" y="72" width="198" height="162"/>
+                                    <rect key="frame" x="109" y="29" width="198" height="162"/>
                                 </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="3Sq-NX-q1n" id="AnG-MK-HLT"/>
@@ -249,7 +228,7 @@
                                     <rect key="frame" x="176" y="419" width="51" height="31"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="176" y="377" width="51" height="31"/>
+                                    <rect key="frame" x="176" y="321" width="51" height="31"/>
                                 </variation>
                                 <connections>
                                     <action selector="randomizeSwitchChanged:" destination="3Sq-NX-q1n" eventType="valueChanged" id="8YI-Z1-Nmd"/>
@@ -265,14 +244,14 @@
                                     <rect key="frame" x="16" y="419" width="101" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="377" width="101" height="21"/>
+                                    <rect key="frame" x="20" y="326" width="101" height="21"/>
                                 </variation>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dDf-jq-LVh">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
                                 <animations/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="176" y="416" width="51" height="31"/>
+                                    <rect key="frame" x="176" y="360" width="51" height="31"/>
                                 </variation>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autoreveal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SmH-CN-p5r">
@@ -282,14 +261,14 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="416" width="101" height="31"/>
+                                    <rect key="frame" x="20" y="360" width="101" height="31"/>
                                 </variation>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gr0-33-NEh">
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
                                 <animations/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="176" y="455" width="51" height="31"/>
+                                    <rect key="frame" x="176" y="399" width="51" height="31"/>
                                 </variation>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Blm-GY-OIL">
@@ -299,17 +278,24 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="460" width="101" height="21"/>
+                                    <rect key="frame" x="20" y="404" width="101" height="21"/>
                                 </variation>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BD0-Jc-1NV">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Start"/>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="20" y="433" width="271" height="49"/>
+                                </variation>
+                                <connections>
+                                    <segue destination="mYT-Xk-Uki" kind="push" identifier="ToFlashCardPlay" id="5dy-NM-WlP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="nna-cF-ALU" secondAttribute="trailing" constant="10" id="Ykd-mM-Tui"/>
-                            <constraint firstItem="Wsh-HJ-B5L" firstAttribute="top" secondItem="nna-cF-ALU" secondAttribute="bottom" constant="40" id="ejc-zp-x4i"/>
-                            <constraint firstItem="nna-cF-ALU" firstAttribute="leading" secondItem="93o-zX-Ffb" secondAttribute="leadingMargin" constant="10" id="tWZ-ob-85S"/>
-                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="Z3X-TD-fbx"/>
@@ -322,11 +308,7 @@
                                 <exclude reference="SmH-CN-p5r"/>
                                 <exclude reference="gr0-33-NEh"/>
                                 <exclude reference="Blm-GY-OIL"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="Ykd-mM-Tui"/>
-                                <exclude reference="tWZ-ob-85S"/>
-                                <exclude reference="ejc-zp-x4i"/>
+                                <exclude reference="BD0-Jc-1NV"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -338,11 +320,6 @@
                                 <include reference="AKv-XY-ZVA"/>
                                 <include reference="RN4-1r-NFW"/>
                             </mask>
-                            <mask key="constraints">
-                                <include reference="Ykd-mM-Tui"/>
-                                <include reference="tWZ-ob-85S"/>
-                                <include reference="ejc-zp-x4i"/>
-                            </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
@@ -350,6 +327,7 @@
                                 <include reference="SmH-CN-p5r"/>
                                 <include reference="gr0-33-NEh"/>
                                 <include reference="Blm-GY-OIL"/>
+                                <include reference="BD0-Jc-1NV"/>
                             </mask>
                         </variation>
                     </view>
@@ -359,7 +337,6 @@
                         <outlet property="markedSwith" destination="gr0-33-NEh" id="fv0-gu-1TI"/>
                         <outlet property="onlyMarkedLabel" destination="3Wm-Ro-JSB" id="SKG-Tc-SXR"/>
                         <outlet property="randomizeSwith" destination="AKv-XY-ZVA" id="rfg-q8-9Cf"/>
-                        <outlet property="startButton" destination="nna-cF-ALU" id="WGj-XO-0R3"/>
                         <outlet property="toPickerView" destination="SfC-ci-bec" id="TmX-ui-ocr"/>
                     </connections>
                 </viewController>
@@ -389,7 +366,7 @@
                                     <rect key="frame" x="16" y="165" width="42" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="134" width="85" height="21"/>
+                                    <rect key="frame" x="16" y="100" width="85" height="21"/>
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCh-eQ-ME0">
@@ -402,7 +379,7 @@
                                     <rect key="frame" x="16" y="319" width="42" height="21"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="275" width="85" height="21"/>
+                                    <rect key="frame" x="16" y="239" width="85" height="21"/>
                                 </variation>
                             </label>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kJH-T4-YID">
@@ -412,7 +389,7 @@
                                     <rect key="frame" x="109" y="95" width="198" height="162"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="109" y="64" width="198" height="162"/>
+                                    <rect key="frame" x="109" y="30" width="198" height="162"/>
                                 </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="yRJ-r0-fZb" id="in0-1S-QXZ"/>
@@ -423,7 +400,7 @@
                                 <rect key="frame" x="-25" y="-15" width="51" height="31"/>
                                 <animations/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="176" y="384" width="51" height="31"/>
+                                    <rect key="frame" x="184" y="344" width="51" height="31"/>
                                 </variation>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only marked" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Wm-Ro-JSB">
@@ -433,9 +410,23 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="16" y="387" width="122" height="26"/>
+                                    <rect key="frame" x="16" y="347" width="122" height="26"/>
                                 </variation>
                             </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdy-gc-cvS">
+                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
+                                <animations/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="109" y="258" width="182" height="162"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="117" y="169" width="182" height="162"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="yRJ-r0-fZb" id="CdD-4H-yGW"/>
+                                    <outlet property="delegate" destination="yRJ-r0-fZb" id="smX-Us-TF3"/>
+                                </connections>
+                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="msO-XB-zBj">
                                 <rect key="frame" x="260" y="373" width="80" height="30"/>
                                 <animations/>
@@ -447,7 +438,7 @@
                                     <rect key="frame" x="151" y="474" width="80" height="30"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="7" y="452" width="348" height="30"/>
+                                    <rect key="frame" x="-9" y="407" width="348" height="30"/>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                     <rect key="frame" x="360" y="379" width="80" height="30"/>
@@ -456,20 +447,6 @@
                                     <segue destination="66a-ki-kc0" kind="show" identifier="showPlayGuessRight" id="BoH-Om-SUV"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdy-gc-cvS">
-                                <rect key="frame" x="0.0" y="-162" width="320" height="162"/>
-                                <animations/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="109" y="258" width="182" height="162"/>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="117" y="205" width="182" height="162"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="dataSource" destination="yRJ-r0-fZb" id="CdD-4H-yGW"/>
-                                    <outlet property="delegate" destination="yRJ-r0-fZb" id="smX-Us-TF3"/>
-                                </connections>
-                            </pickerView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -480,8 +457,8 @@
                                 <exclude reference="kJH-T4-YID"/>
                                 <exclude reference="jqo-Ag-9sH"/>
                                 <exclude reference="3Wm-Ro-JSB"/>
-                                <exclude reference="msO-XB-zBj"/>
                                 <exclude reference="cdy-gc-cvS"/>
+                                <exclude reference="msO-XB-zBj"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -491,8 +468,8 @@
                                 <include reference="kJH-T4-YID"/>
                                 <include reference="jqo-Ag-9sH"/>
                                 <include reference="3Wm-Ro-JSB"/>
-                                <include reference="msO-XB-zBj"/>
                                 <include reference="cdy-gc-cvS"/>
+                                <include reference="msO-XB-zBj"/>
                             </mask>
                         </variation>
                     </view>
@@ -529,6 +506,9 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="3" y="254" width="312" height="63"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="3" y="207" width="312" height="36"/>
+                                </variation>
                                 <connections>
                                     <action selector="generateNumberButtonPushed:" destination="HcD-P8-NRC" eventType="touchUpInside" id="T1H-CP-6v6"/>
                                 </connections>
@@ -539,36 +519,14 @@
                                 <variation key="widthClass=compact" fixedFrame="YES">
                                     <rect key="frame" x="18" y="64" width="282" height="162"/>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="18" y="31" width="282" height="162"/>
+                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="HcD-P8-NRC" id="g1n-uE-05R"/>
                                     <outlet property="delegate" destination="HcD-P8-NRC" id="AdG-D0-sgP"/>
                                 </connections>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digits" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRk-ad-cT8">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="18" y="234" width="282" height="21"/>
-                                </variation>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHc-RQ-ZPG">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <state key="normal" title="Start">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="18" y="456" width="282" height="56"/>
-                                </variation>
-                                <connections>
-                                    <action selector="startButtonPushed:" destination="HcD-P8-NRC" eventType="touchUpInside" id="X0j-77-OeT"/>
-                                    <segue destination="pru-p1-G9Z" kind="show" identifier="ToFlashCardPlay" id="WVd-c9-6V9"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6x-QM-Fy1">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
@@ -599,13 +557,44 @@
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="36" y="302" width="230" height="138"/>
+                                    <rect key="frame" x="44" y="257" width="230" height="138"/>
                                     <mask key="subviews">
                                         <include reference="bQQ-Sf-JOL"/>
                                         <include reference="1cU-AZ-lJQ"/>
                                     </mask>
                                 </variation>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Digits" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRk-ad-cT8">
+                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="18" y="234" width="282" height="21"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="18" y="178" width="282" height="21"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHc-RQ-ZPG">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <state key="normal" title="Start">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="18" y="456" width="282" height="56"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="18" y="417" width="282" height="46"/>
+                                </variation>
+                                <connections>
+                                    <action selector="startButtonPushed:" destination="HcD-P8-NRC" eventType="touchUpInside" id="X0j-77-OeT"/>
+                                    <segue destination="pru-p1-G9Z" kind="show" identifier="ToFlashCardPlay" id="WVd-c9-6V9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -613,9 +602,9 @@
                             <mask key="subviews">
                                 <exclude reference="YNZ-ZY-dP9"/>
                                 <exclude reference="0Uv-ZR-eZV"/>
+                                <exclude reference="A6x-QM-Fy1"/>
                                 <exclude reference="hRk-ad-cT8"/>
                                 <exclude reference="DHc-RQ-ZPG"/>
-                                <exclude reference="A6x-QM-Fy1"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -962,6 +951,7 @@
                             <outletCollection property="gestureRecognizers" destination="vwz-8Z-bBh" appends="YES" id="y7j-y2-T12"/>
                         </connections>
                     </view>
+                    <navigationItem key="navigationItem" id="bmP-ur-1Xn"/>
                     <connections>
                         <outlet property="TapGesture" destination="S3J-2S-RQl" id="fQY-KR-4o8"/>
                     </connections>

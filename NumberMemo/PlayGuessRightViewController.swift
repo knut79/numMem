@@ -103,15 +103,16 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         questionLabel = UILabel(frame: CGRectMake(0, 0, 100, 60))
         questionLabel.textAlignment = NSTextAlignment.Center
         questionLabel.font = UIFont.boldSystemFontOfSize(40)
+        questionLabel.adjustsFontSizeToFitWidth = true
         questionLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: UIScreen.mainScreen().bounds.size.height * 0.22)
         questionLabel.text = questions[currentQuestion].value
         self.view.addSubview(questionLabel)
         
         infoLabel = UILabel(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, 40 * 3))
         infoLabel.textAlignment = NSTextAlignment.Center
-        infoLabel.font = UIFont.boldSystemFontOfSize(14)
+        infoLabel.font = UIFont.boldSystemFontOfSize(10)
         infoLabel.numberOfLines = 4
-        infoLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: (UIScreen.mainScreen().bounds.size.height * 0.30) + labelTimer.frame.height)
+        infoLabel.center = CGPoint(x: UIScreen.mainScreen().bounds.size.width/2,y: questionLabel.frame.maxY + (labelTimer.frame.height / 2))
         
         toggleSoundButton = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width * 0.2, UIScreen.mainScreen().bounds.size.width * 0.2))
         //toggleSoundButton.backgroundColor = UIColor.blackColor()
@@ -125,14 +126,16 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         
         fetchUserData()
         
+        if(staticstoreItems.count == 0)
+        {
+            Staticstore.createInManagedObjectContext(self.managedObjectContext!, wholenumber: "", rightnumber: "" , wrongnumber: "")
+            fetchUserData()
+        }
+        
         setInfoLabelText()
-        
 
-        
         self.view.addSubview(infoLabel)
-        
         self.populateAnswerButtons()
-        
         self.setAnswersOnButtons()
         
         startTimer()
@@ -145,12 +148,12 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         if soundOn
         {
             toggleSoundButton.setTitle("🔊", forState: UIControlState.Normal)
-            self.audioPlayer.volume = 0
+            //self.audioPlayer.volume = 0
         }
         else
         {
             toggleSoundButton.setTitle("🔇", forState: UIControlState.Normal)
-            self.audioPlayer.volume = 1
+            //self.audioPlayer.volume = 1
         }
         soundOn = !soundOn
     }
@@ -166,7 +169,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         for(var i = 0 ; i < 5 ; i++)
         {
             let tempButton = UIButton(frame: CGRectMake(0, 0 , UIScreen.mainScreen().bounds.size.width, 40))
-            let y = CGFloat(45 * i) + infoLabel.frame.maxY + 20
+            let y = CGFloat(45 * i) + infoLabel.frame.maxY + 5
             
             tempButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, y)
             
@@ -433,7 +436,8 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                     }
 
                     self.currentCorrectAnswerStrike++
-                    if(self.currentCorrectAnswerStrike > self.staticstoreItems[0].beststrike)
+                    let bestStrike = self.staticstoreItems.count > 0 ? self.staticstoreItems[0].beststrike : 0
+                    if(self.currentCorrectAnswerStrike > bestStrike)
                     {
                         self.infoLabel.text = "New strike record \(self.currentCorrectAnswerStrike)"
                         self.staticstoreItems[0].beststrike = self.currentCorrectAnswerStrike
@@ -456,6 +460,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                     self.currentCorrectAnswerStrike = 0
                     do {
                         self.audioPlayer = try AVAudioPlayer(contentsOfURL: self.failedSounds[self.randomNumber(0...1)])
+                        
                     } catch let error1 as NSError {
                         print(error1)
                     } catch {
@@ -479,6 +484,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                         }
                     }
                     self.audioPlayer.prepareToPlay()
+                    //self.audioPlayer.volume = self.soundOn ? 1 : 0
                     self.audioPlayer.play()
                 }
                 self.timerCount = 0
