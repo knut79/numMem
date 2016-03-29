@@ -63,20 +63,20 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         slideInFromLeftTransition.fillMode = kCAFillModeRemoved
 
         
-        let aSelector : Selector = "flipCard:"
+        let aSelector : Selector = #selector(PlayFlashCardsViewController.flipCard(_:))
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGesture)
 
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: "nextCard:")
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PlayFlashCardsViewController.nextCard(_:)))
         leftSwipe.direction = UISwipeGestureRecognizerDirection.Left
         view.addGestureRecognizer(leftSwipe)
         
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: "lastCard:")
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PlayFlashCardsViewController.lastCard(_:)))
         rightSwipe.direction = UISwipeGestureRecognizerDirection.Right
         view.addGestureRecognizer(rightSwipe)
         
-        let downSwipe = UISwipeGestureRecognizer(target: self, action: "markCard:")
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(PlayFlashCardsViewController.markCard(_:)))
         downSwipe.direction = UISwipeGestureRecognizerDirection.Down
         view.addGestureRecognizer(downSwipe)
         
@@ -140,7 +140,7 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
 
         if let fetchResults = (try? managedObjectContext!.executeFetchRequest(fetchRequest)) as? [Relation] {
             
-            for(var i = minCardIndex; i <= maxCardIndex ; i++)
+            for i in minCardIndex ... maxCardIndex
             {
                 if(onlyMarked)
                 {
@@ -170,7 +170,7 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
                     animated: true,
                     completion: nil)
                 
-                for(var i = minCardIndex; i <= maxCardIndex ; i++)
+                for i in minCardIndex ... maxCardIndex
                 {
                         addCardClosure(fetchResults[i])
                 }
@@ -194,15 +194,17 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         }
     }
     
-    func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let ecount = list.count
+    func shuffle<C: MutableCollectionType where C.Index == Int>(list: C) -> C
+    {
+        var listMutable = list
+        let ecount = listMutable.count
         for i in 0..<(ecount - 1) {
             let j = Int(arc4random_uniform(UInt32(ecount - i))) + i
             if j != i {
-                swap(&list[i], &list[j])
+                swap(&listMutable[i], &listMutable[j])
             }
         }
-        return list
+        return listMutable
     }
     
     func startTimer()
@@ -212,7 +214,7 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         {
             labelTimer.textColor = UIColor.blackColor()
             labelTimer.font = UIFont.boldSystemFontOfSize(20)
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerCounting"), userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(PlayFlashCardsViewController.timerCounting), userInfo: nil, repeats: true)
             timerRunning = true
         }
             
@@ -229,7 +231,7 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
     
     func timerCounting()
     {
-        self.timerCount++
+        self.timerCount += 1
         labelTimer.text = "\(self.timerCount)"
         
         if(autoreveal)
@@ -297,7 +299,7 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         self.cardView.layer.addAnimation(slideInFromRightTransition, forKey: "slideInFromRightTransition")
         
         
-        self.currentCard++
+        self.currentCard += 1
         self.currentCard = self.currentCard % cards.count
         labelFront.text = cards[currentCard].front
         labelBack.text = cards[currentCard].back
@@ -315,7 +317,7 @@ class PlayFlashCardsViewController: UIViewController, ADBannerViewDelegate{
         // Add the animation to the View's layer
         self.cardView.layer.addAnimation(slideInFromLeftTransition, forKey: "slideInFromLeftTransition")
         
-        self.currentCard--
+        self.currentCard -= 1
         self.currentCard = self.currentCard < 0 ? (cards.count - 1) : self.currentCard
         labelFront.text = cards[currentCard].front
         labelBack.text = cards[currentCard].back

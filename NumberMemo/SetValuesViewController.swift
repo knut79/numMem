@@ -231,10 +231,10 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                             animated: true,
                             completion: nil)
                     }
-                    else if(self.numberExists(String(numberAsInt)))
+                    else if(self.numberExists(String(numberAsInt!)))
                     {
                         let existsPrompt = UIAlertController(title: "Value exists",
-                            message: "Number \(String(numberAsInt)) exists. Values are dismissed",
+                            message: "Number \(String(numberAsInt!)) exists. Values are dismissed",
                             preferredStyle: .Alert)
                         existsPrompt.addAction(UIAlertAction(title: "Ok",
                             style: .Default,
@@ -248,7 +248,7 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
                         //numberTextField!.text
                         //self.saveNewItem(values.0,relationsubject: values.1, relationverb: values.2, otherrelation: values.3)
                     
-                        self.saveNewItem(String(numberAsInt), relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text! : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text! : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text! : "")
+                        self.saveNewItem(String(numberAsInt!), relationsubject: subjectRelationTextField != nil ?  subjectRelationTextField!.text! : "",relationverb: verbRelationTextField != nil ?  verbRelationTextField!.text! : "" , otherrelation: otherRelationTextField != nil ? otherRelationTextField!.text! : "")
                     }
                 }
         }))
@@ -621,13 +621,13 @@ class SetValuesViewController: UIViewController, UITableViewDataSource  , UITabl
         let addButton = UIButton(frame: CGRectMake(margin, UIScreen.mainScreen().bounds.size.height - 44, UIScreen.mainScreen().bounds.size.width * 0.8, 44))
         addButton.setTitle("+", forState: .Normal)
         addButton.backgroundColor = UIColor(red: 0.5, green: 0.9, blue: 0.5, alpha: 1.0)
-        addButton.addTarget(self, action: "addNewItem", forControlEvents: .TouchUpInside)
+        addButton.addTarget(self, action: #selector(SetValuesViewController.addNewItem), forControlEvents: .TouchUpInside)
         self.view.addSubview(addButton)
         
         let infoButton = UIButton(frame: CGRectMake(addButton.frame.maxX + margin , UIScreen.mainScreen().bounds.size.height - 44, (UIScreen.mainScreen().bounds.size.width * 0.2) - (margin * 3), 44))
         infoButton.setTitle("ℹ", forState: .Normal)
         infoButton.backgroundColor = UIColor(red: 0.5, green: 0.9, blue: 0.5, alpha: 1.0)
-        infoButton.addTarget(self, action: "infoAction", forControlEvents: .TouchUpInside)
+        infoButton.addTarget(self, action: #selector(SetValuesViewController.infoAction), forControlEvents: .TouchUpInside)
         self.view.addSubview(infoButton)
         
         // Reduce the total height by 20 points for the status bar, and 44 points for the bottom button

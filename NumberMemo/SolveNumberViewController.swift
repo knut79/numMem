@@ -91,22 +91,26 @@ class SolveNumberViewController: UIViewController {
         numberHighlightLabel.font = UIFont.boldSystemFontOfSize(20)
         overlayView = UIView(frame: CGRectMake(0,0, UIScreen.mainScreen().bounds.size.width , UIScreen.mainScreen().bounds.size.height/3))
         overlayView.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, UIScreen.mainScreen().bounds.size.height/3)
-        overlayView.backgroundColor = UIColor.lightGrayColor()
+        overlayView.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.9)
+        
+        overlayView.layer.cornerRadius = 2
+        overlayView.layer.borderWidth = 2
+        overlayView.layer.borderColor = UIColor.blueColor().CGColor
 
         
-        let upSwipe = UISwipeGestureRecognizer(target: self, action: "increaseNumberOfNumbers:")
+        let upSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SolveNumberViewController.increaseNumberOfNumbers(_:)))
         upSwipe.direction = UISwipeGestureRecognizerDirection.Up
         overlayView.addGestureRecognizer(upSwipe)
         
-        let downSwipe = UISwipeGestureRecognizer(target: self, action: "decreaseNumberOfNumbers:")
+        let downSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SolveNumberViewController.decreaseNumberOfNumbers(_:)))
         downSwipe.direction = UISwipeGestureRecognizerDirection.Down
         overlayView.addGestureRecognizer(downSwipe)
         
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: "nextNumbers:")
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SolveNumberViewController.nextNumbers(_:)))
         leftSwipe.direction = UISwipeGestureRecognizerDirection.Left
         overlayView.addGestureRecognizer(leftSwipe)
         
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: "lastNumbers:")
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(SolveNumberViewController.lastNumbers(_:)))
         rightSwipe.direction = UISwipeGestureRecognizerDirection.Right
         overlayView.addGestureRecognizer(rightSwipe)
         
@@ -117,7 +121,7 @@ class SolveNumberViewController: UIViewController {
         self.view.addSubview(overlayView)
         
         
-        let aSelector : Selector = "tapOnNumberPanel:"
+        let aSelector : Selector = #selector(SolveNumberViewController.tapOnNumberPanel(_:))
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
         numberWebViewOverlay.userInteractionEnabled = true
@@ -173,7 +177,8 @@ class SolveNumberViewController: UIViewController {
         let suffixBold = "</span>"
         //let indexStart: String.Index = advance(number.startIndex, startindex)
         //let indexEnd: String.Index = advance(number.startIndex, endindex)
-        let range = Range<String.Index>( start: startindex, end: endindex)
+        //let range = Range<String.Index>( start: startindex, end: endindex)
+        let range:Range<String.Index> = startindex ..< endindex
         
         let numbersBeforePrefix = number.substringToIndex(startindex)
         let numbersToHighlight = prefixBold + number.substringWithRange(range) + suffixBold
@@ -186,7 +191,7 @@ class SolveNumberViewController: UIViewController {
         
         numberString = ""
         let numDigits = 100
-        for(var i = 0 ; i < 100 ; i++)
+        for _ in 0  ..< 100
         {
             let num:Int = randomInt(0,max: 9)
             let str:String = String(num)
@@ -263,7 +268,7 @@ class SolveNumberViewController: UIViewController {
     }
     
     @IBAction func increaseNumberOfNumbers(sender: AnyObject) {
-        numberOfHiglightedNumbers++
+        numberOfHiglightedNumbers += 1
         if(numberOfHiglightedNumbers > 10)
         {
             numberOfHiglightedNumbers = 10
@@ -273,7 +278,7 @@ class SolveNumberViewController: UIViewController {
     }
     
     @IBAction func decreaseNumberOfNumbers(sender: AnyObject) {
-        numberOfHiglightedNumbers--
+        numberOfHiglightedNumbers -= 1
         if(numberOfHiglightedNumbers < 0)
         {
             numberOfHiglightedNumbers = 0
@@ -302,20 +307,22 @@ class SolveNumberViewController: UIViewController {
             currentHighlightNumberIndex = 0
         }
         
-        let indexStart: String.Index = numbersValue.startIndex.advancedBy(currentHighlightNumberIndex)
-        let indexEnd: String.Index = end ? numbersValue.startIndex.advancedBy(numbersValue.utf16.count) : numbersValue.startIndex.advancedBy(currentHighlightNumberIndex + numberOfHiglightedNumbers)
-        let range = Range<String.Index>( start: indexStart, end: indexEnd)
-        let currentNumbersToHighlight = numbersValue.substringWithRange(range)
-        
+        print("value 1 \(numbersValue.characters.count) value2\(currentHighlightNumberIndex)")
+        if currentHighlightNumberIndex < numbersValue.characters.count
+        {
+            let indexStart: String.Index = numbersValue.startIndex.advancedBy(currentHighlightNumberIndex)
+            let indexEnd: String.Index = end ? numbersValue.startIndex.advancedBy(numbersValue.utf16.count) : numbersValue.startIndex.advancedBy(currentHighlightNumberIndex + numberOfHiglightedNumbers)
+            //let range = Range<String.Index>( start: indexStart, end: indexEnd)
+            let range:Range<String.Index> = indexStart ..< indexEnd
+            let currentNumbersToHighlight = numbersValue.substringWithRange(range)
+            
 
-        numberHighlightLabel.text = currentNumbersToHighlight
+            numberHighlightLabel.text = currentNumbersToHighlight
 
-
-        
-        
-        //highlight in webview
-        setTextWithHighlightForNumberLabel(numberString, startindex:indexStart, endindex:indexEnd)
-        
+            
+            //highlight in webview
+            setTextWithHighlightForNumberLabel(numberString, startindex:indexStart, endindex:indexEnd)
+        }
     }
     
     override func didReceiveMemoryWarning() {

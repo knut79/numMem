@@ -245,12 +245,13 @@ class PlaySolveNumberViewController: UIViewController, ADBannerViewDelegate{
             return (oneNumber,false)
         }
         let indexEnd: String.Index = number.startIndex.advancedBy(charNumberInNumber+1)
-        let range = Range<String.Index>( start: indexStart, end: indexEnd)
+        //let range = Range<String.Index>( start: indexStart, end: indexEnd)
+        let range:Range<String.Index> = indexStart ..< indexEnd
         let currentChar = number.substringWithRange(range)
         
         if(currentChar == oneNumber)
         {
-            charNumberInNumber++
+            charNumberInNumber += 1
         }
         return (currentChar,currentChar == oneNumber)
     }

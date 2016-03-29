@@ -117,7 +117,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         toggleSoundButton = UIButton(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width * 0.2, UIScreen.mainScreen().bounds.size.width * 0.2))
         //toggleSoundButton.backgroundColor = UIColor.blackColor()
         toggleSoundButton.setTitle("🔇", forState: UIControlState.Normal)
-        toggleSoundButton.addTarget(self, action: "toggleSound", forControlEvents: UIControlEvents.TouchUpInside)
+        toggleSoundButton.addTarget(self, action: #selector(PlayGuessRightViewController.toggleSound), forControlEvents: UIControlEvents.TouchUpInside)
         toggleSoundButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width - (toggleSoundButton.frame.width / 2) , self.navigationController!.navigationBar.frame.maxY + (toggleSoundButton.frame.height / 2))
         //toggleSoundButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width / 2, UIScreen.mainScreen().bounds.height / 2)
 
@@ -166,14 +166,14 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     func populateAnswerButtons()
     {
-        for(var i = 0 ; i < 5 ; i++)
+        for i in 0  ..< 5
         {
             let tempButton = UIButton(frame: CGRectMake(0, 0 , UIScreen.mainScreen().bounds.size.width, 40))
             let y = CGFloat(45 * i) + infoLabel.frame.maxY + 5
             
             tempButton.center = CGPointMake(UIScreen.mainScreen().bounds.size.width/2, y)
             
-            let selector: Selector = "giveAnswer:"
+            let selector: Selector = #selector(PlayGuessRightViewController.giveAnswer(_:))
             tempButton.addTarget(self, action: selector, forControlEvents: .TouchUpInside)
             tempButton.backgroundColor = UIColor.blackColor()
             tempButton.titleLabel?.textColor = UIColor.whiteColor()
@@ -266,7 +266,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                 addQuestion(relation,allQuestionsCollecton: true)
                 
             }
-            for(var i = minCardIndex; i <= maxCardIndex ; i++)
+            for i in minCardIndex ... maxCardIndex
             {
                 if(onlyMarked)
                 {
@@ -296,7 +296,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                     animated: true,
                     completion: nil)
                 
-                for(var i = minCardIndex; i <= maxCardIndex ; i++)
+                for i in minCardIndex ... maxCardIndex
                 {
                     addQuestion(fetchResults[i])
                 }
@@ -337,15 +337,17 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         }
     }
     
-    func shuffle<C: MutableCollectionType where C.Index == Int>(var list: C) -> C {
-        let ecount = list.count
+    func shuffle<C: MutableCollectionType where C.Index == Int>(list: C) -> C
+    {
+        var listMutable = list
+        let ecount = listMutable.count
         for i in 0..<(ecount - 1) {
             let j = Int(arc4random_uniform(UInt32(ecount - i))) + i
             if j != i {
-                swap(&list[i], &list[j])
+                swap(&listMutable[i], &listMutable[j])
             }
         }
-        return list
+        return listMutable
     }
     
     var currentCorrectAnswerStrike:Int16 = 0
@@ -357,7 +359,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
         {
             labelTimer.textColor = UIColor.blackColor()
             labelTimer.font = UIFont.boldSystemFontOfSize(20)
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: Selector("timerCounting"), userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(PlayGuessRightViewController.timerCounting), userInfo: nil, repeats: true)
             timerRunning = true
         }
         
@@ -374,7 +376,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
     
     func timerCounting()
     {
-        self.timerCount++
+        self.timerCount += 1
         labelTimer.text = "\(self.timerCount)"
         
         if(autoreveal)
@@ -435,7 +437,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
                         fatalError()
                     }
 
-                    self.currentCorrectAnswerStrike++
+                    self.currentCorrectAnswerStrike += 1
                     let bestStrike = self.staticstoreItems.count > 0 ? self.staticstoreItems[0].beststrike : 0
                     if(self.currentCorrectAnswerStrike > bestStrike)
                     {
@@ -533,7 +535,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
             var tries = 0
             repeat
             {
-                tries++
+                tries += 1
                 uniqueAnswer = true
                 
                 if(rightAnswerIndex == i)
@@ -561,7 +563,7 @@ class PlayGuessRightViewController: UIViewController, ADBannerViewDelegate{
             
             answerButton.backgroundColor = UIColor.blackColor()
             answerButton.setTitle(answerText, forState: UIControlState.Normal)
-            i++
+            i += 1
         }
     }
     
